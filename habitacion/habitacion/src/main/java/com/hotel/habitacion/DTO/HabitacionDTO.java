@@ -1,16 +1,7 @@
-package com.hotel.habitacion.Model;
+package com.hotel.habitacion.DTO;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Data;
+public class HabitacionDTO {
 
-@Entity
-@Data
-@Table(name = "Habitaciones")
-public class ModelHabitacion {
-
-    @Id
     private Long id_habitacion;
     private String numero_habitacion;
     private String tipo_habitacion;
@@ -19,9 +10,22 @@ public class ModelHabitacion {
     private Integer cantidad_banos;
     private String estado_habitacion;
 
-    public ModelHabitacion() {
+    public HabitacionDTO() {
     }
 
+    public HabitacionDTO(Long id_habitacion, String numero_habitacion, String tipo_habitacion,
+            Integer capacidad_personas, Integer cantidad_camas, Integer cantidad_banos,
+            String estado_habitacion) {
+        this.id_habitacion = id_habitacion;
+        this.numero_habitacion = numero_habitacion;
+        this.tipo_habitacion = tipo_habitacion;
+        this.capacidad_personas = capacidad_personas;
+        this.cantidad_camas = cantidad_camas;
+        this.cantidad_banos = cantidad_banos;
+        this.estado_habitacion = estado_habitacion;
+    }
+
+    // Getters y Setters
     public Long getId_habitacion() {
         return id_habitacion;
     }
