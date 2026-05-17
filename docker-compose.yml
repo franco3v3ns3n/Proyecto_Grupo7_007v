@@ -1,0 +1,29 @@
+services:
+  mysql-hotel:
+    image: mysql:8.0
+    container_name: mysql-hotel
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: veranum_hotel
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_hotel_data:/var/lib/mysql
+
+  hotel:
+    build:
+      context: ./hotel
+    container_name: hotel
+    restart: always
+    depends_on:
+      - mysql-hotel
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-hotel:3306/veranum_hotel?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root123
+
+volumes:
+  mysql_hotel_data:

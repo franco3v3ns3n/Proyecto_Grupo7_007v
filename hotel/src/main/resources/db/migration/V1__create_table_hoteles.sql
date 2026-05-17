@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS hoteles (
+    id_hotel INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    ubicacion VARCHAR(150) NOT NULL
+);
