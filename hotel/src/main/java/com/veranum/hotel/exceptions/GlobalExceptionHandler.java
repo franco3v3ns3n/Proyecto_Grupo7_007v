@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(HotelNotFoundException.class)
+    @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleHotelNotFoundException(
-            HotelNotFoundException ex,
+            ResourceNotFoundException ex,
             HttpServletRequest request
     ) {
 
