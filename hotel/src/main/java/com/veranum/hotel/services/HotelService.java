@@ -2,7 +2,7 @@ package com.veranum.hotel.services;
 
 import com.veranum.hotel.dtos.request.HotelRequestDTO;
 import com.veranum.hotel.dtos.response.HotelResponseDTO;
-import com.veranum.hotel.exceptions.HotelNotFoundException;
+import com.veranum.hotel.exceptions.ResourceNotFoundException;
 import com.veranum.hotel.models.HotelModel;
 import com.veranum.hotel.repositories.HotelRepository;
 import jakarta.transaction.Transactional;
@@ -35,7 +35,7 @@ public class HotelService {
         log.info("Buscando hotel con id: {}", idHotel);
 
         HotelModel hotel = hotelRepository.findById(idHotel)
-                .orElseThrow(() -> new HotelNotFoundException("Hotel no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Hotel no encontrado"));
 
         return mapToResponse(hotel);
     }
@@ -57,7 +57,7 @@ public class HotelService {
         log.info("Actualizando hotel con id: {}", idHotel);
 
         HotelModel hotel = hotelRepository.findById(idHotel)
-                .orElseThrow(() -> new HotelNotFoundException("Hotel no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Hotel no encontrado"));
 
         hotel.setNombre(request.getNombre());
         hotel.setUbicacion(request.getUbicacion());
@@ -71,7 +71,7 @@ public class HotelService {
         log.info("Eliminando hotel con id: {}", idHotel);
 
         HotelModel hotel = hotelRepository.findById(idHotel)
-                .orElseThrow(() -> new HotelNotFoundException("Hotel no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Hotel no encontrado"));
 
         hotelRepository.delete(hotel);
     }
