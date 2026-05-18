@@ -1,7 +1,7 @@
 package com.veranum.servicio.exceptions;
 
-import com.veranum.hotel.exceptions.ErrorResponse;
-import com.veranum.hotel.exceptions.ResourceNotFoundException;
+import com.veranum.servicio.exceptions.ErrorResponse;
+import com.veranum.servicio.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleHotelNotFoundException(
+    public ResponseEntity<ErrorResponse> handleResourceNotFoundException(
             ResourceNotFoundException ex,
             HttpServletRequest request
     ) {
