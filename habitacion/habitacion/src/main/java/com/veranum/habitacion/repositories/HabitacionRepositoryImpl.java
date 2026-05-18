@@ -1,16 +1,18 @@
-package com.hotel.habitacion.Repository;
+package com.veranum.habitacion.repositories;
 
-import com.hotel.habitacion.Model.ModelHabitacion;
 import org.springframework.stereotype.Repository;
+
+import com.veranum.habitacion.models.HabitacionModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
 interface HabitacionRepository {
-    void guardar(ModelHabitacion habitacion);
+    void guardar(HabitacionModel habitacion);
 
-    List<ModelHabitacion> obtenerTodas();
+    List<HabitacionModel> obtenerTodas();
 
-    ModelHabitacion buscarPorId(Long id_habitacion); // Asegúrate que sea id_habitacion
+    HabitacionModel buscarPorId(Long id_habitacion); // Asegúrate que sea id_habitacion
 
     void eliminar(Long id_habitacion);
 }
@@ -18,20 +20,20 @@ interface HabitacionRepository {
 @Repository
 public class HabitacionRepositoryImpl implements HabitacionRepository {
 
-    private List<ModelHabitacion> baseDeDatosSimulada = new ArrayList<>();
+    private List<HabitacionModel> baseDeDatosSimulada = new ArrayList<>();
 
     @Override
-    public void guardar(ModelHabitacion habitacion) {
+    public void guardar(HabitacionModel habitacion) {
         baseDeDatosSimulada.add(habitacion);
     }
 
     @Override
-    public List<ModelHabitacion> obtenerTodas() {
+    public List<HabitacionModel> obtenerTodas() {
         return baseDeDatosSimulada;
     }
 
     @Override
-    public ModelHabitacion buscarPorId(Long id_habitacion) {
+    public HabitacionModel buscarPorId(Long id_habitacion) {
         return baseDeDatosSimulada.stream()
                 .filter(h -> h.getId_habitacion().equals(id_habitacion))
                 .findFirst()

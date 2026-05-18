@@ -1,4 +1,4 @@
-package com.hotel.habitacion;
+package com.veranum.habitacion;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

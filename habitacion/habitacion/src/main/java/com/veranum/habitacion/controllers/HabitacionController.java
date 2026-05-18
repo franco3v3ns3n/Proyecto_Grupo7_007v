@@ -1,9 +1,10 @@
-package com.hotel.habitacion.Controller;
+package com.veranum.habitacion.controllers;
 
-import com.hotel.habitacion.Model.ModelHabitacion;
-import com.hotel.habitacion.Service.HabitacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import com.veranum.habitacion.models.HabitacionModel;
+import com.veranum.habitacion.services.HabitacionService;
 
 import java.util.List;
 
@@ -16,20 +17,20 @@ public class HabitacionController {
 
     // 1. Obtener todas las habitaciones (GET)
     @GetMapping("/listar")
-    public List<ModelHabitacion> getAll() {
+    public List<HabitacionModel> getAll() {
         return habitacionService.listarTodas();
     }
 
     // 2. Crear una nueva habitación (POST)
     @PostMapping("/guardar")
-    public String save(@RequestBody ModelHabitacion habitacion) {
+    public String save(@RequestBody HabitacionModel habitacion) {
         habitacionService.registrarHabitacion(habitacion);
         return "Habitación " + habitacion.getNumero_habitacion() + " guardada con éxito";
     }
 
     // 3. Buscar por ID (GET)
     @GetMapping("/buscar/{id}")
-    public ModelHabitacion getById(@PathVariable Long id) {
+    public HabitacionModel getById(@PathVariable Long id) {
         // Cambiado a minúscula para que coincida con el Service
         return habitacionService.buscarPorId(id);
     }
