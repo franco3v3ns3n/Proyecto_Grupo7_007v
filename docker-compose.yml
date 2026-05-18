@@ -14,6 +14,7 @@ services:
   hotel:
     build:
       context: ./hotel
+      dockerfile: dockerfile
     container_name: hotel
     restart: always
     depends_on:
@@ -25,5 +26,35 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root123
 
+  mysql-servicio:
+    image: mysql:8.0
+    container_name: mysql-servicio
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: veranum_servicio
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql_servicio_data:/var/lib/mysql
+
+  servicio:
+    build:
+      context: ./servicio
+      dockerfile: dockerfile
+    container_name: servicio
+    restart: always
+    depends_on:
+      - mysql-servicio
+      - hotel
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-servicio:3306/veranum_servicio?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root123
+      HOTEL_SERVICE_URL: http://hotel:8081
+
 volumes:
   mysql_hotel_data:
+  mysql_servicio_data:
