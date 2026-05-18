@@ -1,5 +1,7 @@
 package com.veranum.habitacion.dtos;
 
+import jakarta.validation.constraints.NotNull;
+
 public class HabitacionDTO {
 
     private Long id_habitacion;
@@ -25,7 +27,7 @@ public class HabitacionDTO {
         this.estado_habitacion = estado_habitacion;
     }
 
-    // Getters y Setters
+    @NotNull(message = "El id es obligatorio.")
     public Long getId_habitacion() {
         return id_habitacion;
     }
