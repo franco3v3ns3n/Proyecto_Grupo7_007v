@@ -1,4 +1,4 @@
-package com.hotel.habitacion.DTO;
+package com.veranum.habitacion.dtos;
 
 public class HabitacionDTO {
 
