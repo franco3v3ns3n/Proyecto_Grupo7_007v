@@ -55,6 +55,35 @@ services:
       SPRING_DATASOURCE_PASSWORD: root123
       HOTEL_SERVICE_URL: http://hotel:8081
 
+  mysql-evento:
+    image: mysql:8.0
+    container_name: mysql-evento
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: veranum_evento
+    ports:
+      - "3309:3306"
+    volumes:
+      - mysql_evento_data:/var/lib/mysql
+
+  evento:
+    build:
+      context: ./evento
+      dockerfile: dockerfile
+    container_name: evento
+    restart: always
+    depends_on:
+      - mysql-evento
+      - hotel
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-evento:3306/veranum_evento?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root123
+      HOTEL_SERVICE_URL: http://hotel:8081
 volumes:
   mysql_hotel_data:
   mysql_servicio_data:
+  mysql_evento_data:
