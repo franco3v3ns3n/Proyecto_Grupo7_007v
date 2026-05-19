@@ -15,31 +15,31 @@ import lombok.NoArgsConstructor;
 public class HabitacionModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Sincronizado con el AUTO_INCREMENT de tu SQL
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_habitacion")
-    private Integer id_habitacion;
+    private Integer idHabitacion;
 
-    @Column(name = "id_hotel", nullable = false) // Mapeo de la FK del script
+    @Column(name = "id_hotel", nullable = false)
     private Integer idHotel;
 
     @Column(name = "tipo_habitacion", nullable = false, length = 100)
-    private String tipo_habitacion;
+    private String tipoHabitacion;
 
     @Column(name = "numero_habitacion", nullable = false, length = 20)
-    private String numero_habitacion;
+    private String numeroHabitacion;
 
     @Column(nullable = false)
-    private Integer capacidad_personas;
+    private Integer capacidadPersonas;
 
     @Column(nullable = false)
-    private Integer cantidad_camas;
+    private Integer cantidadCamas;
 
     @Column(nullable = false)
-    private Integer cantidad_banos;
+    private Integer cantidadBanos;
 
     @Column(name = "precio_diario", nullable = false)
-    private Double precio_diario; // Corresponde al DECIMAL(10,2)
+    private Double precioDiario;
 
     @Column(name = "estado_habitacion", nullable = false, length = 30)
-    private String estado_habitacion;
+    private String estadoHabitacion;
 }

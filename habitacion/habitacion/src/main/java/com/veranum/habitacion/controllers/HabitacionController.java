@@ -1,39 +1,58 @@
 package com.veranum.habitacion.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import com.veranum.habitacion.models.HabitacionModel;
+import com.veranum.habitacion.dtos.request.HabitacionRequestDTO;
+import com.veranum.habitacion.dtos.response.HabitacionResponseDTO;
 import com.veranum.habitacion.services.HabitacionService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/habitaciones")
+@RequestMapping("/api/v1/habitaciones")
 public class HabitacionController {
 
-    @Autowired
-    private HabitacionService habitacionService;
+    private final HabitacionService habitacionService;
 
-    @GetMapping("/listar")
-    public List<HabitacionModel> getAll() {
-        return habitacionService.listarTodas();
+    public HabitacionController(HabitacionService habitacionService) {
+        this.habitacionService = habitacionService;
     }
 
-    @PostMapping("/guardar")
-    public String save(@RequestBody HabitacionModel habitacion) {
-        habitacionService.registrarHabitacion(habitacion);
-        return "Habitación " + habitacion.getNumero_habitacion() + " guardada con éxito";
+    @GetMapping
+    public ResponseEntity<List<HabitacionResponseDTO>> obtenerHabitaciones() {
+        return ResponseEntity.ok(habitacionService.obtenerHabitaciones());
     }
 
-    @GetMapping("/buscar/{id}")
-    public HabitacionModel getById(@PathVariable Long id) {
-        return habitacionService.buscarPorId(id);
+    @GetMapping("/{idHabitacion}")
+    public ResponseEntity<HabitacionResponseDTO> obtenerHabitacionPorId(
+            @PathVariable Integer idHabitacion) {
+        return ResponseEntity.ok(habitacionService.obtenerHabitacionPorId(idHabitacion));
     }
 
-    @DeleteMapping("/eliminar/{id}")
-    public String delete(@PathVariable Long id) {
-        habitacionService.eliminarHabitacion(id);
-        return "Habitación eliminada correctamente";
+    // 3. CREAR HABITACIÓN
+    @PostMapping
+    public ResponseEntity<HabitacionResponseDTO> crearHabitacion(
+            @Valid @RequestBody HabitacionRequestDTO request) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED) // Código HTTP 201 Created
+                .body(habitacionService.crearHabitacion(request));
+    }
+
+    // 4. ACTUALIZAR HABITACIÓN
+    @PutMapping("/{idHabitacion}")
+    public ResponseEntity<HabitacionResponseDTO> actualizarHabitacion(
+            @PathVariable Integer idHabitacion,
+            @Valid @RequestBody HabitacionRequestDTO request) {
+        return ResponseEntity.ok(habitacionService.actualizarHabitacion(idHabitacion, request));
+    }
+
+    // 5. ELIMINAR HABITACIÓN
+    @DeleteMapping("/{idHabitacion}")
+    public ResponseEntity<Void> eliminarHabitacion(
+            @PathVariable Integer idHabitacion) {
+        habitacionService.eliminarHabitacion(idHabitacion);
+        return ResponseEntity.noContent().build(); // Código HTTP 204 No Content
     }
 }

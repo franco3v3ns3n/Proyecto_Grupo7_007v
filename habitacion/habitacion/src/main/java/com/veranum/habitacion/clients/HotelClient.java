@@ -1,4 +1,4 @@
-package com.veranum.habitacion.client;
+package com.veranum.habitacion.clients;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
