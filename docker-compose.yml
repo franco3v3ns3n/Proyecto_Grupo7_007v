@@ -83,7 +83,37 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root123
       HOTEL_SERVICE_URL: http://hotel:8081
+  mysql-habitacion:
+    image: mysql:8.0
+    container_name: mysql-habitacion
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: veranum_habitacion
+    ports:
+      - "3310:3306"
+    volumes:
+      - mysql_habitacion_data:/var/lib/mysql
+
+  habitacion:
+    build:
+      context: ./habitacion
+      dockerfile: dockerfile
+    container_name: habitacion
+    restart: always
+    depends_on:
+      - mysql-habitacion
+      - hotel
+    ports:
+      - "8084:8084"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-habitacion:3306/veranum_habitacion?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root123
+      HOTEL_SERVICE_URL: http://hotel:8081
+
 volumes:
   mysql_hotel_data:
   mysql_servicio_data:
   mysql_evento_data:
+  mysql_habitacion_data:
