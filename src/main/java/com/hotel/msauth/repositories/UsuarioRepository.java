@@ -8,6 +8,6 @@ import java.util.Optional;
 @Repository
 public interface UsuarioRepository extends JpaRepository<UsuarioModel, Long> {
     
-    // Este método nos servirá para el Login
+    
     Optional<UsuarioModel> findByUsername(String username);
 }

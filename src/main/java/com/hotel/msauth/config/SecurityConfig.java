@@ -15,7 +15,7 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .anyRequest().permitAll() // ESTO DEJA PASAR A TODO EL MUNDO
+                .anyRequest().permitAll()
             );
         return http.build();
     }

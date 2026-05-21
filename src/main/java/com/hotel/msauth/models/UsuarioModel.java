@@ -18,9 +18,9 @@ public class UsuarioModel {
     @Column(nullable = false)
     private String password;
 
-    private String rol; // EJEMPLO: ADMIN, RECEPCIONISTA, ETC.
+    private String rol;
 
-    // Getters y Setters manuales
+    
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
     public String getPassword() { return password; }
@@ -28,6 +28,6 @@ public class UsuarioModel {
     public String getRol() { return rol; }
     public void setRol(String rol) { this.rol = rol; }
     
-    // Constructor vacío manual
+  
     public UsuarioModel() {}
 }

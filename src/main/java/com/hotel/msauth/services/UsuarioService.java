@@ -17,18 +17,18 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    // Listar todos los usuarios (Útil para el Admin del hotel)
+    
     public List<UsuarioModel> obtenerTodos() {
         return usuarioRepository.findAll();
     }
 
-    // Guardar un usuario (Registro)
+    
     public UsuarioModel guardar(UsuarioModel usuario) {
-        // Aquí luego agregaremos el cifrado de contraseña por seguridad
+        
         return usuarioRepository.save(usuario);
     }
 
-    // Buscar por username (Para el Login)
+    
     public UsuarioModel buscarPorUsername(String username) {
         return usuarioRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado: " + username));
