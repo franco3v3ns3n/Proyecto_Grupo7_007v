@@ -45,6 +45,17 @@ public class HabitacionService {
         return mapToResponse(habitacion);
     }
 
+    public List<HabitacionResponseDTO> obtenerHabitacionesPorHotel(Integer idHotel) {
+        log.info("Obteniendo habitaciones del hotel con id: {}", idHotel);
+
+        validarHotelExiste(idHotel);
+
+        return habitacionRepository.findByIdHotel(idHotel)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
     public HabitacionResponseDTO crearHabitacion(HabitacionRequestDTO request) {
         log.info("Creando habitación número: {}", request.getNumeroHabitacion());
 
@@ -99,12 +110,10 @@ public class HabitacionService {
 
     private void validarHotelExiste(Integer idHotel) {
         try {
-            hotelClient.buscarHotelPorId(idHotel);
+            hotelClient.obtenerHotelPorId(idHotel);
         } catch (FeignException.NotFound ex) {
-            log.error("Validación fallida: El hotel con id {} no existe.", idHotel);
             throw new ResourceNotFoundException("Hotel no encontrado con id: " + idHotel);
         } catch (FeignException ex) {
-            log.error("Error al conectar vía Feign con el microservicio de Hoteles: {}", ex.getMessage());
             throw new RemoteServiceException("Error al comunicarse con el microservicio hotel");
         }
     }

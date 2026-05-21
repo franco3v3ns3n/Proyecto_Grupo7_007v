@@ -10,6 +10,7 @@ import lombok.Data;
 public class HabitacionRequestDTO {
 
     @NotNull(message = "El id del hotel es obligatorio")
+    @Positive(message = "El id del hotel debe ser mayor a 0")
     private Integer idHotel;
 
     @NotBlank(message = "El tipo de habitación es obligatorio")

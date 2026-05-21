@@ -28,13 +28,13 @@ public class HabitacionModel {
     @Column(name = "numero_habitacion", nullable = false, length = 20)
     private String numeroHabitacion;
 
-    @Column(nullable = false)
+    @Column(name = "capacidad_personas", nullable = false)
     private Integer capacidadPersonas;
 
-    @Column(nullable = false)
+    @Column(name = "cantidad_camas", nullable = false)
     private Integer cantidadCamas;
 
-    @Column(nullable = false)
+    @Column(name = "cantidad_banos", nullable = false)
     private Integer cantidadBanos;
 
     @Column(name = "precio_diario", nullable = false)

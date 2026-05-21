@@ -27,32 +27,40 @@ public class HabitacionController {
 
     @GetMapping("/{idHabitacion}")
     public ResponseEntity<HabitacionResponseDTO> obtenerHabitacionPorId(
-            @PathVariable Integer idHabitacion) {
+            @PathVariable Integer idHabitacion
+    ) {
         return ResponseEntity.ok(habitacionService.obtenerHabitacionPorId(idHabitacion));
     }
 
-    // 3. CREAR HABITACIÓN
+    @GetMapping("/hotel/{idHotel}")
+    public ResponseEntity<List<HabitacionResponseDTO>> obtenerHabitacionesPorHotel(
+            @PathVariable Integer idHotel
+    ) {
+        return ResponseEntity.ok(habitacionService.obtenerHabitacionesPorHotel(idHotel));
+    }
+
     @PostMapping
     public ResponseEntity<HabitacionResponseDTO> crearHabitacion(
-            @Valid @RequestBody HabitacionRequestDTO request) {
+            @Valid @RequestBody HabitacionRequestDTO request
+    ) {
         return ResponseEntity
-                .status(HttpStatus.CREATED) // Código HTTP 201 Created
+                .status(HttpStatus.CREATED)
                 .body(habitacionService.crearHabitacion(request));
     }
 
-    // 4. ACTUALIZAR HABITACIÓN
     @PutMapping("/{idHabitacion}")
     public ResponseEntity<HabitacionResponseDTO> actualizarHabitacion(
             @PathVariable Integer idHabitacion,
-            @Valid @RequestBody HabitacionRequestDTO request) {
+            @Valid @RequestBody HabitacionRequestDTO request
+    ) {
         return ResponseEntity.ok(habitacionService.actualizarHabitacion(idHabitacion, request));
     }
 
-    // 5. ELIMINAR HABITACIÓN
     @DeleteMapping("/{idHabitacion}")
     public ResponseEntity<Void> eliminarHabitacion(
-            @PathVariable Integer idHabitacion) {
+            @PathVariable Integer idHabitacion
+    ) {
         habitacionService.eliminarHabitacion(idHabitacion);
-        return ResponseEntity.noContent().build(); // Código HTTP 204 No Content
+        return ResponseEntity.noContent().build();
     }
 }
