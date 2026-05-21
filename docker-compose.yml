@@ -112,8 +112,67 @@ services:
       SPRING_DATASOURCE_PASSWORD: root123
       HOTEL_SERVICE_URL: http://hotel:8081
 
+  mysql-cliente:
+    image: mysql:8.0
+    container_name: mysql-cliente
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: veranum_cliente
+    ports:
+      - "3311:3306"
+    volumes:
+      - mysql_cliente_data:/var/lib/mysql
+
+  cliente:
+    build:
+      context: ./cliente
+      dockerfile: dockerfile
+    container_name: cliente
+    restart: always
+    depends_on:
+      - mysql-cliente
+    ports:
+      - "8085:8085"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-cliente:3306/veranum_cliente?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root123
+
+  mysql-reserva:
+    image: mysql:8.0
+    container_name: mysql-reserva
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: veranum_reserva
+    ports:
+      - "3312:3306"
+    volumes:
+      - mysql_reserva_data:/var/lib/mysql
+
+  reserva:
+    build:
+      context: ./reserva
+      dockerfile: dockerfile
+    container_name: reserva
+    restart: always
+    depends_on:
+      - mysql-reserva
+      - cliente
+    ports:
+      - "8086:8086"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-reserva:3306/veranum_reserva?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root123
+      CLIENTE_SERVICE_URL: http://cliente:8085
+      HABITACION_SERVICE_URL: http://habitacion:8084
+
 volumes:
   mysql_hotel_data:
   mysql_servicio_data:
   mysql_evento_data:
   mysql_habitacion_data:
+  mysql_cliente_data:
+  mysql_reserva_data:
