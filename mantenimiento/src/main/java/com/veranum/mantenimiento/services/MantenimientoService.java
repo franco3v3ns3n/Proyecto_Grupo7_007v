@@ -1,6 +1,6 @@
 package com.veranum.mantenimiento.services;
 
-import com.veranum.mantenimiento.clients.HotelClient;
+import com.veranum.mantenimiento.clients.HabitacionClient;
 import com.veranum.mantenimiento.dtos.request.MantenimientoRequestDTO;
 import com.veranum.mantenimiento.dtos.response.MantenimientoResponseDTO;
 import com.veranum.mantenimiento.exceptions.RemoteServiceException;
@@ -11,6 +11,7 @@ import feign.FeignException;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -19,15 +20,19 @@ import java.util.List;
 public class MantenimientoService {
 
     private final MantenimientoRepository mantenimientoRepository;
-    private final HotelClient hotelClient;
+    private final HabitacionClient habitacionClient;
 
-    public MantenimientoService(MantenimientoRepository mantenimientoRepository, HotelClient hotelClient) {
+    public MantenimientoService(
+            MantenimientoRepository mantenimientoRepository,
+            HabitacionClient habitacionClient
+    ) {
         this.mantenimientoRepository = mantenimientoRepository;
-        this.hotelClient = hotelClient;
+        this.habitacionClient = habitacionClient;
     }
 
     public List<MantenimientoResponseDTO> obtenerMantenimientos() {
-        log.info("Obteniendo el listado de todos los mantenimientos");
+        log.info("Obteniendo mantenimientos");
+
         return mantenimientoRepository.findAll()
                 .stream()
                 .map(this::mapToResponse)
@@ -36,82 +41,91 @@ public class MantenimientoService {
 
     public MantenimientoResponseDTO obtenerMantenimientoPorId(Integer idMantenimiento) {
         log.info("Buscando mantenimiento con id: {}", idMantenimiento);
+
         MantenimientoModel mantenimiento = mantenimientoRepository.findById(idMantenimiento)
-                .orElseThrow(
-                        () -> new ResourceNotFoundException("Mantenimiento no encontrado con id: " + idMantenimiento));
+                .orElseThrow(() -> new ResourceNotFoundException("Mantenimiento no encontrado"));
+
         return mapToResponse(mantenimiento);
     }
 
-    public List<MantenimientoResponseDTO> obtenerMantenimientosPorHotel(Integer idHotel) {
-        log.info("Obteniendo mantenimientos del hotel con id: {}", idHotel);
-        validarHotelExiste(idHotel);
-        return mantenimientoRepository.findById_hotel(idHotel)
+    public List<MantenimientoResponseDTO> obtenerMantenimientosPorHabitacion(Integer idHabitacion) {
+        log.info("Obteniendo mantenimientos de la habitación con id: {}", idHabitacion);
+
+        validarHabitacionExiste(idHabitacion);
+
+        return mantenimientoRepository.findByIdHabitacion(idHabitacion)
                 .stream()
                 .map(this::mapToResponse)
                 .toList();
     }
 
     public MantenimientoResponseDTO crearMantenimiento(MantenimientoRequestDTO request) {
-        log.info("Creando registro de mantenimiento para el hotel ID: {}", request.getIdHotel());
-        validarHotelExiste(request.getIdHotel());
+        log.info("Creando mantenimiento para habitación: {}", request.getIdHabitacion());
+
+        validarHabitacionExiste(request.getIdHabitacion());
 
         MantenimientoModel mantenimiento = MantenimientoModel.builder()
-                .id_hotel(request.getIdHotel())
-                .descripcion_mantenimiento(request.getDescripcionMantenimiento())
-                .fecha_inicio(request.getFechaInicio())
-                .fecha_termino(request.getFechaTermino())
-                .costo_mantenimiento(request.getCostoMantenimiento())
-                .estado_mantenimiento(request.getEstadoMantenimiento())
+                .idHabitacion(request.getIdHabitacion())
+                .tipoMantenimiento(request.getTipoMantenimiento())
+                .fechaInicio(request.getFechaInicio())
+                .fechaFin(request.getFechaFin())
+                .estadoMantenimiento(request.getEstadoMantenimiento())
                 .build();
 
-        return mapToResponse(mantenimientoRepository.save(mantenimiento));
+        MantenimientoModel mantenimientoGuardado = mantenimientoRepository.save(mantenimiento);
+
+        return mapToResponse(mantenimientoGuardado);
     }
 
-    public MantenimientoResponseDTO actualizarMantenimiento(Integer idMantenimiento, MantenimientoRequestDTO request) {
+    public MantenimientoResponseDTO actualizarMantenimiento(
+            Integer idMantenimiento,
+            MantenimientoRequestDTO request
+    ) {
         log.info("Actualizando mantenimiento con id: {}", idMantenimiento);
+
         MantenimientoModel mantenimiento = mantenimientoRepository.findById(idMantenimiento)
-                .orElseThrow(
-                        () -> new ResourceNotFoundException("Mantenimiento no encontrado con id: " + idMantenimiento));
+                .orElseThrow(() -> new ResourceNotFoundException("Mantenimiento no encontrado"));
 
-        validarHotelExiste(request.getIdHotel());
+        validarHabitacionExiste(request.getIdHabitacion());
 
-        mantenimiento.setId_hotel(request.getIdHotel());
-        mantenimiento.setDescripcion_mantenimiento(request.getDescripcionMantenimiento());
-        mantenimiento.setFecha_inicio(request.getFechaInicio());
-        mantenimiento.setFecha_termino(request.getFechaTermino());
-        mantenimiento.setCosto_mantenimiento(request.getCostoMantenimiento());
-        mantenimiento.setEstado_mantenimiento(request.getEstadoMantenimiento());
+        mantenimiento.setIdHabitacion(request.getIdHabitacion());
+        mantenimiento.setTipoMantenimiento(request.getTipoMantenimiento());
+        mantenimiento.setFechaInicio(request.getFechaInicio());
+        mantenimiento.setFechaFin(request.getFechaFin());
+        mantenimiento.setEstadoMantenimiento(request.getEstadoMantenimiento());
 
-        return mapToResponse(mantenimientoRepository.save(mantenimiento));
+        MantenimientoModel mantenimientoActualizado = mantenimientoRepository.save(mantenimiento);
+
+        return mapToResponse(mantenimientoActualizado);
     }
 
     public void eliminarMantenimiento(Integer idMantenimiento) {
         log.info("Eliminando mantenimiento con id: {}", idMantenimiento);
+
         MantenimientoModel mantenimiento = mantenimientoRepository.findById(idMantenimiento)
-                .orElseThrow(
-                        () -> new ResourceNotFoundException("Mantenimiento no encontrado con id: " + idMantenimiento));
+                .orElseThrow(() -> new ResourceNotFoundException("Mantenimiento no encontrado"));
+
         mantenimientoRepository.delete(mantenimiento);
     }
 
-    private void validarHotelExiste(Integer idHotel) {
+    private void validarHabitacionExiste(Integer idHabitacion) {
         try {
-            hotelClient.obtenerHotelPorId(idHotel);
+            habitacionClient.obtenerHabitacionPorId(idHabitacion);
         } catch (FeignException.NotFound ex) {
-            throw new ResourceNotFoundException("Hotel no encontrado con id: " + idHotel);
+            throw new ResourceNotFoundException("Habitación no encontrada con id: " + idHabitacion);
         } catch (FeignException ex) {
-            throw new RemoteServiceException("Error al comunicarse con el microservicio hotel");
+            throw new RemoteServiceException("Error al comunicarse con el microservicio habitacion");
         }
     }
 
     private MantenimientoResponseDTO mapToResponse(MantenimientoModel mantenimiento) {
         return MantenimientoResponseDTO.builder()
-                .idMantenimiento(mantenimiento.getId_mantenimiento())
-                .idHotel(mantenimiento.getId_hotel())
-                .descripcionMantenimiento(mantenimiento.getDescripcion_mantenimiento())
-                .fechaInicio(mantenimiento.getFecha_inicio())
-                .fechaTermino(mantenimiento.getFecha_termino())
-                .costoMantenimiento(mantenimiento.getCosto_mantenimiento())
-                .estadoMantenimiento(mantenimiento.getEstado_mantenimiento())
+                .idMantenimiento(mantenimiento.getIdMantenimiento())
+                .idHabitacion(mantenimiento.getIdHabitacion())
+                .tipoMantenimiento(mantenimiento.getTipoMantenimiento())
+                .fechaInicio(mantenimiento.getFechaInicio())
+                .fechaFin(mantenimiento.getFechaFin())
+                .estadoMantenimiento(mantenimiento.getEstadoMantenimiento())
                 .build();
     }
 }

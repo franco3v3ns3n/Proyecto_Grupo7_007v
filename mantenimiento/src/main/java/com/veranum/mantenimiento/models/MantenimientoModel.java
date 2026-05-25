@@ -5,36 +5,34 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "mantenimientos")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class MantenimientoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_mantenimiento")
-    private Integer id_mantenimiento;
+    private Integer idMantenimiento;
 
-    @Column(name = "id_hotel", nullable = false)
-    private Integer id_hotel;
+    @Column(name = "id_habitacion", nullable = false)
+    private Integer idHabitacion;
 
-    @Column(name = "descripcion_mantenimiento", nullable = false, length = 500)
-    private String descripcion_mantenimiento;
+    @Column(name = "tipo_mantenimiento", nullable = false, length = 100)
+    private String tipoMantenimiento;
 
     @Column(name = "fecha_inicio", nullable = false)
-    private LocalDate fecha_inicio;
+    private LocalDateTime fechaInicio;
 
-    @Column(name = "fecha_termino", nullable = false)
-    private LocalDate fecha_termino;
+    @Column(name = "fecha_fin")
+    private LocalDateTime fechaFin;
 
-    @Column(name = "costo_mantenimiento", nullable = false)
-    private Double costo_mantenimiento;
-
-    @Column(name = "estado_mantenimiento", nullable = false)
-    private String estado_mantenimiento;
+    @Column(name = "estado_mantenimiento", nullable = false, length = 30)
+    private String estadoMantenimiento;
 }

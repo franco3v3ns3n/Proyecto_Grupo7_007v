@@ -2,33 +2,27 @@ package com.veranum.mantenimiento.dtos.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class MantenimientoRequestDTO {
 
-    @NotNull(message = "El id del hotel es obligatorio")
-    private Integer idHotel;
+    @NotNull(message = "El id de la habitación es obligatorio")
+    private Integer idHabitacion;
 
-    @NotBlank(message = "La descripción no puede estar vacía")
-    private String descripcionMantenimiento;
+    @NotBlank(message = "El tipo de mantenimiento es obligatorio")
+    @Size(max = 100, message = "El tipo de mantenimiento no puede superar 100 caracteres")
+    private String tipoMantenimiento;
 
     @NotNull(message = "La fecha de inicio es obligatoria")
-    private LocalDate fechaInicio;
+    private LocalDateTime fechaInicio;
 
-    @NotNull(message = "La fecha de término es obligatoria")
-    private LocalDate fechaTermino;
-
-    @NotNull(message = "El costo es obligatorio")
-    @Positive(message = "El costo debe ser un valor positivo")
-    private Double costoMantenimiento;
+    private LocalDateTime fechaFin;
 
     @NotBlank(message = "El estado del mantenimiento es obligatorio")
+    @Size(max = 30, message = "El estado no puede superar 30 caracteres")
     private String estadoMantenimiento;
 }

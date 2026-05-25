@@ -27,19 +27,26 @@ public class MantenimientoController {
 
     @GetMapping("/{idMantenimiento}")
     public ResponseEntity<MantenimientoResponseDTO> obtenerMantenimientoPorId(
-            @PathVariable Integer idMantenimiento) {
-        return ResponseEntity.ok(mantenimientoService.obtenerMantenimientoPorId(idMantenimiento));
+            @PathVariable Integer idMantenimiento
+    ) {
+        return ResponseEntity.ok(
+                mantenimientoService.obtenerMantenimientoPorId(idMantenimiento)
+        );
     }
 
-    @GetMapping("/hotel/{idHotel}")
-    public ResponseEntity<List<MantenimientoResponseDTO>> obtenerMantenimientosPorHotel(
-            @PathVariable Integer idHotel) {
-        return ResponseEntity.ok(mantenimientoService.obtenerMantenimientosPorHotel(idHotel));
+    @GetMapping("/habitacion/{idHabitacion}")
+    public ResponseEntity<List<MantenimientoResponseDTO>> obtenerMantenimientosPorHabitacion(
+            @PathVariable Integer idHabitacion
+    ) {
+        return ResponseEntity.ok(
+                mantenimientoService.obtenerMantenimientosPorHabitacion(idHabitacion)
+        );
     }
 
     @PostMapping
     public ResponseEntity<MantenimientoResponseDTO> crearMantenimiento(
-            @Valid @RequestBody MantenimientoRequestDTO request) {
+            @Valid @RequestBody MantenimientoRequestDTO request
+    ) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(mantenimientoService.crearMantenimiento(request));
@@ -48,14 +55,19 @@ public class MantenimientoController {
     @PutMapping("/{idMantenimiento}")
     public ResponseEntity<MantenimientoResponseDTO> actualizarMantenimiento(
             @PathVariable Integer idMantenimiento,
-            @Valid @RequestBody MantenimientoRequestDTO request) {
-        return ResponseEntity.ok(mantenimientoService.actualizarMantenimiento(idMantenimiento, request));
+            @Valid @RequestBody MantenimientoRequestDTO request
+    ) {
+        return ResponseEntity.ok(
+                mantenimientoService.actualizarMantenimiento(idMantenimiento, request)
+        );
     }
 
     @DeleteMapping("/{idMantenimiento}")
     public ResponseEntity<Void> eliminarMantenimiento(
-            @PathVariable Integer idMantenimiento) {
+            @PathVariable Integer idMantenimiento
+    ) {
         mantenimientoService.eliminarMantenimiento(idMantenimiento);
+
         return ResponseEntity.noContent().build();
     }
 }

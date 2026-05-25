@@ -1,21 +1,18 @@
 package com.veranum.mantenimiento.dtos.response;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
 public class MantenimientoResponseDTO {
+
     private Integer idMantenimiento;
-    private Integer idHotel;
-    private String descripcionMantenimiento;
-    private LocalDate fechaInicio;
-    private LocalDate fechaTermino;
-    private Double costoMantenimiento;
+    private Integer idHabitacion;
+    private String tipoMantenimiento;
+    private LocalDateTime fechaInicio;
+    private LocalDateTime fechaFin;
     private String estadoMantenimiento;
 }
