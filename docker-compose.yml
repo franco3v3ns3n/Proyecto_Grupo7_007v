@@ -83,6 +83,7 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root123
       HOTEL_SERVICE_URL: http://hotel:8081
+
   mysql-habitacion:
     image: mysql:8.0
     container_name: mysql-habitacion
@@ -169,6 +170,39 @@ services:
       CLIENTE_SERVICE_URL: http://cliente:8085
       HABITACION_SERVICE_URL: http://habitacion:8084
 
+  mysql-estadia:
+    image: mysql:8.0
+    container_name: mysql-estadia
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: veranum_estadia
+    ports:
+      - "3313:3306"
+    volumes:
+      - mysql_estadia_data:/var/lib/mysql
+
+  estadia:
+    build:
+      context: ./estadia
+      dockerfile: dockerfile
+    container_name: estadia
+    restart: always
+    depends_on:
+      - mysql-estadia
+      - cliente
+      - habitacion
+      - reserva
+    ports:
+      - "8087:8087"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-estadia:3306/veranum_estadia?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root123
+      CLIENTE_SERVICE_URL: http://cliente:8085
+      HABITACION_SERVICE_URL: http://habitacion:8084
+      RESERVA_SERVICE_URL: http://reserva:8086
+
 volumes:
   mysql_hotel_data:
   mysql_servicio_data:
@@ -176,3 +210,4 @@ volumes:
   mysql_habitacion_data:
   mysql_cliente_data:
   mysql_reserva_data:
+  mysql_estadia_data:
