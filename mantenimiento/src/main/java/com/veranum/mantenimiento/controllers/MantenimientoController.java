@@ -1,8 +1,8 @@
-package veranum.mantenimiento.controllers;
+package com.veranum.mantenimiento.controllers;
 
-import veranum.mantenimiento.dtos.request.MantenimientoRequestDTO;
-import veranum.mantenimiento.dtos.response.MantenimientoResponseDTO;
-import veranum.mantenimiento.services.MantenimientoService;
+import com.veranum.mantenimiento.dtos.request.MantenimientoRequestDTO;
+import com.veranum.mantenimiento.dtos.response.MantenimientoResponseDTO;
+import com.veranum.mantenimiento.services.MantenimientoService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

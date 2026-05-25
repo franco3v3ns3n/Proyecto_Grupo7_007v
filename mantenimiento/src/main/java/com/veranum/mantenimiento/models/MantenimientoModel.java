@@ -1,4 +1,4 @@
-package veranum.mantenimiento.models;
+package com.veranum.mantenimiento.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
-package veranum.mantenimiento.clients;
+package com.veranum.mantenimiento.clients;
 
-import veranum.mantenimiento.dtos.response.HotelResponseDTO;
+import com.veranum.mantenimiento.dtos.response.HotelResponseDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

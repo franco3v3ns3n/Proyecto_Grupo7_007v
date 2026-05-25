@@ -1,4 +1,4 @@
-package veranum.mantenimiento.exceptions;
+package com.veranum.mantenimiento.exceptions;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;

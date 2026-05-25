@@ -1,4 +1,4 @@
-package veranum.mantenimiento.exceptions;
+package com.veranum.mantenimiento.exceptions;
 
 public class RemoteServiceException extends RuntimeException {
 

@@ -1,4 +1,4 @@
-package veranum.mantenimiento.dtos.response;
+package com.veranum.mantenimiento.dtos.response;
 
 import lombok.Builder;
 import lombok.Data;

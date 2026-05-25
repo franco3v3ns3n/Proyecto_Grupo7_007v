@@ -1,4 +1,4 @@
-package veranum.mantenimiento.exceptions;
+package com.veranum.mantenimiento.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

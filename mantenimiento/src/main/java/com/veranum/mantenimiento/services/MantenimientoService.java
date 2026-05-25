@@ -1,12 +1,12 @@
-package veranum.mantenimiento.services;
+package com.veranum.mantenimiento.services;
 
-import veranum.mantenimiento.clients.HotelClient;
-import veranum.mantenimiento.dtos.request.MantenimientoRequestDTO;
-import veranum.mantenimiento.dtos.response.MantenimientoResponseDTO;
-import veranum.mantenimiento.exceptions.RemoteServiceException;
-import veranum.mantenimiento.exceptions.ResourceNotFoundException;
-import veranum.mantenimiento.models.MantenimientoModel;
-import veranum.mantenimiento.repositories.MantenimientoRepository;
+import com.veranum.mantenimiento.clients.HotelClient;
+import com.veranum.mantenimiento.dtos.request.MantenimientoRequestDTO;
+import com.veranum.mantenimiento.dtos.response.MantenimientoResponseDTO;
+import com.veranum.mantenimiento.exceptions.RemoteServiceException;
+import com.veranum.mantenimiento.exceptions.ResourceNotFoundException;
+import com.veranum.mantenimiento.models.MantenimientoModel;
+import com.veranum.mantenimiento.repositories.MantenimientoRepository;
 import feign.FeignException;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;

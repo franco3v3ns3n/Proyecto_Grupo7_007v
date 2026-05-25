@@ -1,8 +1,8 @@
-package veranum.mantenimiento.repositories;
+package com.veranum.mantenimiento.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import veranum.mantenimiento.models.MantenimientoModel;
+import com.veranum.mantenimiento.models.MantenimientoModel;
 import java.util.List;
 
 @Repository
