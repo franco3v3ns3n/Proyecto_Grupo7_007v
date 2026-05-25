@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ms-cotizacion</groupId>
-	<artifactId>hotel</artifactId>
+	<artifactId>cotizacion</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name/>
 	<description/>
