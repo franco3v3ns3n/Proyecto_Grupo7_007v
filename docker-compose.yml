@@ -231,6 +231,35 @@ services:
       SPRING_DATASOURCE_PASSWORD: root123
       HABITACION_SERVICE_URL: http://habitacion:8084
 
+  mysql-pago:
+    image: mysql:8.0
+    container_name: mysql-pago
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: veranum_pago
+    ports:
+      - "3316:3306"
+    volumes:
+      - mysql_pago_data:/var/lib/mysql
+
+  pago:
+    build:
+      context: ./pago
+      dockerfile: dockerfile
+    container_name: pago
+    restart: always
+    depends_on:
+      - mysql-pago
+      - estadia
+    ports:
+      - "8090:8090"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-pago:3306/veranum_pago?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root123
+      ESTADIA_SERVICE_URL: http://estadia:8087
+
 volumes:
   mysql_hotel_data:
   mysql_servicio_data:
@@ -240,3 +269,4 @@ volumes:
   mysql_reserva_data:
   mysql_estadia_data:
   mysql_mantenimiento_data:
+  mysql_pago_data:
