@@ -56,6 +56,20 @@ public class CentroEventoService {
                 .toList();
     }
 
+    public List<CentroEventoResponseDTO> obtenerCentrosEventosPorEstado(
+            String estadoCentroEvento
+    ) {
+        log.info(
+                "Obteniendo centros de eventos con estado: {}",
+                estadoCentroEvento
+        );
+
+        return centroEventoRepository.findByEstadoCentroEvento(estadoCentroEvento)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
     public CentroEventoResponseDTO crearCentroEvento(CentroEventoRequestDTO request) {
         log.info("Creando centro de evento: {}", request.getNombre());
 

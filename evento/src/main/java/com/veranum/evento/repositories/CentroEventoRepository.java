@@ -10,4 +10,8 @@ import java.util.List;
 public interface CentroEventoRepository extends JpaRepository<CentroEventoModel, Integer> {
 
     List<CentroEventoModel> findByIdHotel(Integer idHotel);
+
+    List<CentroEventoModel> findByEstadoCentroEvento(
+            String estadoCentroEvento
+    );
 }

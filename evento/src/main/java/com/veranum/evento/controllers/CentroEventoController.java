@@ -43,6 +43,17 @@ public class CentroEventoController {
         );
     }
 
+    @GetMapping("/estado/{estadoCentroEvento}")
+    public ResponseEntity<List<CentroEventoResponseDTO>> obtenerCentrosEventosPorEstado(
+            @PathVariable String estadoCentroEvento
+    ) {
+        return ResponseEntity.ok(
+                centroEventoService.obtenerCentrosEventosPorEstado(
+                        estadoCentroEvento
+                )
+        );
+    }
+
     @PostMapping
     public ResponseEntity<CentroEventoResponseDTO> crearCentroEvento(
             @Valid @RequestBody CentroEventoRequestDTO request
