@@ -89,6 +89,20 @@ public class EstadiaService {
                 .toList();
     }
 
+    public List<EstadiaResponseDTO> obtenerEstadiasPorEstado(
+            String estadoEstadia
+    ) {
+        log.info(
+                "Obteniendo estadías con estado: {}",
+                estadoEstadia
+        );
+
+        return estadiaRepository.findByEstadoEstadia(estadoEstadia)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
     public EstadiaResponseDTO crearEstadia(EstadiaRequestDTO request) {
         log.info("Creando estadía para cliente: {}", request.getIdCliente());
 

@@ -53,6 +53,17 @@ public class EstadiaController {
         return ResponseEntity.ok(estadiaService.obtenerEstadiasPorReserva(idReserva));
     }
 
+    @GetMapping("/estado/{estadoEstadia}")
+    public ResponseEntity<List<EstadiaResponseDTO>> obtenerEstadiasPorEstado(
+            @PathVariable String estadoEstadia
+    ) {
+        return ResponseEntity.ok(
+                estadiaService.obtenerEstadiasPorEstado(
+                        estadoEstadia
+                )
+        );
+    }
+
     @PostMapping
     public ResponseEntity<EstadiaResponseDTO> crearEstadia(
             @Valid @RequestBody EstadiaRequestDTO request

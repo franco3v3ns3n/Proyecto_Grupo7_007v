@@ -14,4 +14,8 @@ public interface EstadiaRepository extends JpaRepository<EstadiaModel, Integer> 
     List<EstadiaModel> findByIdHabitacion(Integer idHabitacion);
 
     List<EstadiaModel> findByIdReserva(Integer idReserva);
+
+    List<EstadiaModel> findByEstadoEstadia(
+            String estadoEstadia
+    );
 }
