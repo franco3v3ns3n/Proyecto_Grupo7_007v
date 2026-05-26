@@ -39,6 +39,17 @@ public class EmpleadoController {
         return ResponseEntity.ok(empleadoService.obtenerEmpleadosPorHotel(idHotel));
     }
 
+    @GetMapping("/estado/{estadoEmpleado}")
+    public ResponseEntity<List<EmpleadoResponseDTO>> obtenerEmpleadosPorEstado(
+            @PathVariable String estadoEmpleado
+    ) {
+        return ResponseEntity.ok(
+                empleadoService.obtenerEmpleadosPorEstado(
+                        estadoEmpleado
+                )
+        );
+    }    
+
     @PostMapping
     public ResponseEntity<EmpleadoResponseDTO> crearEmpleado(
             @Valid @RequestBody EmpleadoRequestDTO request

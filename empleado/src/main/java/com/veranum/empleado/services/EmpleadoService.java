@@ -59,6 +59,20 @@ public class EmpleadoService {
                 .toList();
     }
 
+    public List<EmpleadoResponseDTO> obtenerEmpleadosPorEstado(
+            String estadoEmpleado
+    ) {
+        log.info(
+                "Obteniendo empleados con estado: {}",
+                estadoEmpleado
+        );
+
+        return empleadoRepository.findByEstadoEmpleado(estadoEmpleado)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
     public EmpleadoResponseDTO crearEmpleado(EmpleadoRequestDTO request) {
         log.info("Creando empleado con rut: {}", request.getRut());
 

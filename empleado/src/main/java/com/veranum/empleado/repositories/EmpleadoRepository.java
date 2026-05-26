@@ -10,4 +10,8 @@ import java.util.List;
 public interface EmpleadoRepository extends JpaRepository<EmpleadoModel, Integer> {
 
     List<EmpleadoModel> findByIdHotel(Integer idHotel);
+
+    List<EmpleadoModel> findByEstadoEmpleado(
+            String estadoEmpleado
+    );
 }
