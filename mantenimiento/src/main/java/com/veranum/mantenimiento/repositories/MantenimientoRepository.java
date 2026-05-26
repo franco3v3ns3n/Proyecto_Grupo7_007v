@@ -10,4 +10,8 @@ import java.util.List;
 public interface MantenimientoRepository extends JpaRepository<MantenimientoModel, Integer> {
 
     List<MantenimientoModel> findByIdHabitacion(Integer idHabitacion);
+
+    List<MantenimientoModel> findByEstadoMantenimiento(
+            String estadoMantenimiento
+    );
 }

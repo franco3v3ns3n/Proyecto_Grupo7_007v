@@ -43,6 +43,17 @@ public class MantenimientoController {
         );
     }
 
+    @GetMapping("/estado/{estadoMantenimiento}")
+    public ResponseEntity<List<MantenimientoResponseDTO>> obtenerMantenimientosPorEstado(
+            @PathVariable String estadoMantenimiento
+    ) {
+        return ResponseEntity.ok(
+                mantenimientoService.obtenerMantenimientosPorEstado(
+                        estadoMantenimiento
+                )
+        );
+    }
+
     @PostMapping
     public ResponseEntity<MantenimientoResponseDTO> crearMantenimiento(
             @Valid @RequestBody MantenimientoRequestDTO request

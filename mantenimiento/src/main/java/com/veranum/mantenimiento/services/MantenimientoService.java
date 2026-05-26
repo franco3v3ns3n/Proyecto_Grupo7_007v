@@ -59,6 +59,20 @@ public class MantenimientoService {
                 .toList();
     }
 
+    public List<MantenimientoResponseDTO> obtenerMantenimientosPorEstado(
+            String estadoMantenimiento
+    ) {
+        log.info(
+                "Obteniendo mantenimientos con estado: {}",
+                estadoMantenimiento
+        );
+
+        return mantenimientoRepository.findByEstadoMantenimiento(estadoMantenimiento)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
     public MantenimientoResponseDTO crearMantenimiento(MantenimientoRequestDTO request) {
         log.info("Creando mantenimiento para habitación: {}", request.getIdHabitacion());
 
