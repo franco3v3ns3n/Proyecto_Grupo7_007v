@@ -10,4 +10,14 @@ import java.util.List;
 public interface HabitacionRepository extends JpaRepository<HabitacionModel, Integer> {
 
     List<HabitacionModel> findByIdHotel(Integer idHotel);
+
+    List<HabitacionModel> findByIdHotelAndTipoHabitacion(
+            Integer idHotel,
+            String tipoHabitacion
+    );
+
+    List<HabitacionModel> findByIdHotelAndEstadoHabitacion(
+            Integer idHotel,
+            String estadoHabitacion
+    );
 }

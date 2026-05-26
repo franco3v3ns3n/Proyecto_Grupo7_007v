@@ -56,6 +56,42 @@ public class HabitacionService {
                 .toList();
     }
 
+    public List<HabitacionResponseDTO> obtenerHabitacionesPorHotelYTipo(
+            Integer idHotel,
+            String tipoHabitacion
+    ) {
+        log.info(
+                "Obteniendo habitaciones del hotel con id: {} y tipo: {}",
+                idHotel,
+                tipoHabitacion
+        );
+
+        validarHotelExiste(idHotel);
+
+        return habitacionRepository.findByIdHotelAndTipoHabitacion(idHotel, tipoHabitacion)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
+    public List<HabitacionResponseDTO> obtenerHabitacionesPorHotelYEstado(
+            Integer idHotel,
+            String estadoHabitacion
+    ) {
+        log.info(
+                "Obteniendo habitaciones del hotel con id: {} y estado: {}",
+                idHotel,
+                estadoHabitacion
+        );
+
+        validarHotelExiste(idHotel);
+
+        return habitacionRepository.findByIdHotelAndEstadoHabitacion(idHotel, estadoHabitacion)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
     public HabitacionResponseDTO crearHabitacion(HabitacionRequestDTO request) {
         log.info("Creando habitación número: {}", request.getNumeroHabitacion());
 

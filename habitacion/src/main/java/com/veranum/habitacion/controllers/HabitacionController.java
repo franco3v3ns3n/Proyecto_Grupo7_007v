@@ -39,6 +39,32 @@ public class HabitacionController {
         return ResponseEntity.ok(habitacionService.obtenerHabitacionesPorHotel(idHotel));
     }
 
+    @GetMapping("/hotel/{idHotel}/tipo/{tipoHabitacion}")
+    public ResponseEntity<List<HabitacionResponseDTO>> obtenerHabitacionesPorHotelYTipo(
+            @PathVariable Integer idHotel,
+            @PathVariable String tipoHabitacion
+    ) {
+        return ResponseEntity.ok(
+                habitacionService.obtenerHabitacionesPorHotelYTipo(
+                        idHotel,
+                        tipoHabitacion
+                )
+        );
+    }
+
+    @GetMapping("/hotel/{idHotel}/estado/{estadoHabitacion}")
+    public ResponseEntity<List<HabitacionResponseDTO>> obtenerHabitacionesPorHotelYEstado(
+            @PathVariable Integer idHotel,
+            @PathVariable String estadoHabitacion
+    ) {
+        return ResponseEntity.ok(
+                habitacionService.obtenerHabitacionesPorHotelYEstado(
+                        idHotel,
+                        estadoHabitacion
+                )
+        );
+    }
+
     @PostMapping
     public ResponseEntity<HabitacionResponseDTO> crearHabitacion(
             @Valid @RequestBody HabitacionRequestDTO request
