@@ -10,4 +10,8 @@ import java.util.List;
 public interface PagoRepository extends JpaRepository<PagoModel, Integer> {
 
     List<PagoModel> findByIdEstadia(Integer idEstadia);
+
+    List<PagoModel> findByEstadoPago(
+            String estadoPago
+    );
 }

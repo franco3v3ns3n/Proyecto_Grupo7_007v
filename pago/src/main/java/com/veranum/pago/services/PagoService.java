@@ -59,6 +59,20 @@ public class PagoService {
                 .toList();
     }
 
+    public List<PagoResponseDTO> obtenerPagosPorEstado(
+            String estadoPago
+    ) {
+        log.info(
+                "Obteniendo pagos con estado: {}",
+                estadoPago
+        );
+
+        return pagoRepository.findByEstadoPago(estadoPago)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
     public PagoResponseDTO crearPago(PagoRequestDTO request) {
         log.info("Creando pago para estadía: {}", request.getIdEstadia());
 

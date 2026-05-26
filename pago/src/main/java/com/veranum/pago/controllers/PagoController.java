@@ -39,6 +39,17 @@ public class PagoController {
         return ResponseEntity.ok(pagoService.obtenerPagosPorEstadia(idEstadia));
     }
 
+    @GetMapping("/estado/{estadoPago}")
+    public ResponseEntity<List<PagoResponseDTO>> obtenerPagosPorEstado(
+            @PathVariable String estadoPago
+    ) {
+        return ResponseEntity.ok(
+                pagoService.obtenerPagosPorEstado(
+                        estadoPago
+                )
+        );
+    }
+
     @PostMapping
     public ResponseEntity<PagoResponseDTO> crearPago(
             @Valid @RequestBody PagoRequestDTO request
