@@ -46,6 +46,17 @@ public class ReservaController {
         return ResponseEntity.ok(reservaService.obtenerReservasPorHabitacion(idHabitacion));
     }
 
+    @GetMapping("/estado/{estadoReserva}")
+    public ResponseEntity<List<ReservaResponseDTO>> obtenerReservasPorEstado(
+            @PathVariable String estadoReserva
+    ) {
+        return ResponseEntity.ok(
+                reservaService.obtenerReservasPorEstado(
+                        estadoReserva
+                )
+        );
+    }
+
     @PostMapping
     public ResponseEntity<ReservaResponseDTO> crearReserva(
             @Valid @RequestBody ReservaRequestDTO request

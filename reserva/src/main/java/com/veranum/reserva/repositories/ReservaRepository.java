@@ -12,4 +12,8 @@ public interface ReservaRepository extends JpaRepository<ReservaModel, Integer> 
     List<ReservaModel> findByIdCliente(Integer idCliente);
 
     List<ReservaModel> findByIdHabitacion(Integer idHabitacion);
+
+    List<ReservaModel> findByEstadoReserva(
+            String estadoReserva
+    );
 }

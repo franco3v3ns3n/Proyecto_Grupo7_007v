@@ -75,6 +75,20 @@ public class ReservaService {
                 .toList();
     }
 
+    public List<ReservaResponseDTO> obtenerReservasPorEstado(
+            String estadoReserva
+    ) {
+        log.info(
+                "Obteniendo reservas con estado: {}",
+                estadoReserva
+        );
+
+        return reservaRepository.findByEstadoReserva(estadoReserva)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
     public ReservaResponseDTO crearReserva(ReservaRequestDTO request) {
         log.info("Creando reserva para cliente {} y habitación {}", request.getIdCliente(), request.getIdHabitacion());
 
