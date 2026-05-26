@@ -56,6 +56,20 @@ public class ServicioService {
                 .toList();
     }
 
+    public List<ServicioResponseDTO> obtenerServiciosPorEstado(
+            String estadoServicio
+    ) {
+        log.info(
+                "Obteniendo servicios con estado: {}",
+                estadoServicio
+        );
+
+        return servicioRepository.findByEstadoServicio(estadoServicio)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
     public ServicioResponseDTO crearServicio(ServicioRequestDTO request) {
         log.info("Creando servicio: {}", request.getNombre());
 

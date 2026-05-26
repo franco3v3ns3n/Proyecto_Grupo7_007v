@@ -39,6 +39,17 @@ public class ServicioController {
         return ResponseEntity.ok(servicioService.obtenerServiciosPorHotel(idHotel));
     }
 
+    @GetMapping("/estado/{estadoServicio}")
+    public ResponseEntity<List<ServicioResponseDTO>> obtenerServiciosPorEstado(
+            @PathVariable String estadoServicio
+    ) {
+        return ResponseEntity.ok(
+                servicioService.obtenerServiciosPorEstado(
+                        estadoServicio
+                )
+        );
+    }
+
     @PostMapping
     public ResponseEntity<ServicioResponseDTO> crearServicio(
             @Valid @RequestBody ServicioRequestDTO request
