@@ -7,6 +7,7 @@ import com.veranum.hotel.models.HotelModel;
 import com.veranum.hotel.repositories.HotelRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,11 +17,8 @@ import java.util.List;
 @Slf4j
 public class HotelService {
 
-    private final HotelRepository hotelRepository;
-
-    public HotelService(HotelRepository hotelRepository) {
-        this.hotelRepository = hotelRepository;
-    }
+    @Autowired
+    private HotelRepository hotelRepository;
 
     public List<HotelResponseDTO> obtenerHoteles() {
         log.info("Obteniendo hoteles");

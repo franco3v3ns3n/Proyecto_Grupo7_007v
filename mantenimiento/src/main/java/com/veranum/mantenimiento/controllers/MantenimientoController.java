@@ -4,6 +4,7 @@ import com.veranum.mantenimiento.dtos.request.MantenimientoRequestDTO;
 import com.veranum.mantenimiento.dtos.response.MantenimientoResponseDTO;
 import com.veranum.mantenimiento.services.MantenimientoService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +15,8 @@ import java.util.List;
 @RequestMapping("/api/v1/mantenimientos")
 public class MantenimientoController {
 
-    private final MantenimientoService mantenimientoService;
-
-    public MantenimientoController(MantenimientoService mantenimientoService) {
-        this.mantenimientoService = mantenimientoService;
-    }
+    @Autowired
+    private MantenimientoService mantenimientoService;
 
     @GetMapping
     public ResponseEntity<List<MantenimientoResponseDTO>> obtenerMantenimientos() {

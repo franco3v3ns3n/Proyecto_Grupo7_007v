@@ -10,6 +10,7 @@ import com.veranum.evento.repositories.CentroEventoRepository;
 import feign.FeignException;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,13 +20,11 @@ import java.util.List;
 @Slf4j
 public class CentroEventoService {
 
-    private final CentroEventoRepository centroEventoRepository;
-    private final HotelClient hotelClient;
+    @Autowired
+    private CentroEventoRepository centroEventoRepository;
 
-    public CentroEventoService(CentroEventoRepository centroEventoRepository, HotelClient hotelClient) {
-        this.centroEventoRepository = centroEventoRepository;
-        this.hotelClient = hotelClient;
-    }
+    @Autowired
+    private HotelClient hotelClient;
 
     public List<CentroEventoResponseDTO> obtenerCentrosEventos() {
         log.info("Obteniendo centros de eventos");

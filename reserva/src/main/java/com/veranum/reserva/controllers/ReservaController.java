@@ -4,6 +4,7 @@ import com.veranum.reserva.dtos.request.ReservaRequestDTO;
 import com.veranum.reserva.dtos.response.ReservaResponseDTO;
 import com.veranum.reserva.services.ReservaService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +15,8 @@ import java.util.List;
 @RequestMapping("/api/v1/reservas")
 public class ReservaController {
 
-    private final ReservaService reservaService;
-
-    public ReservaController(ReservaService reservaService) {
-        this.reservaService = reservaService;
-    }
+    @Autowired
+    private ReservaService reservaService;
 
     @GetMapping
     public ResponseEntity<List<ReservaResponseDTO>> obtenerReservas() {

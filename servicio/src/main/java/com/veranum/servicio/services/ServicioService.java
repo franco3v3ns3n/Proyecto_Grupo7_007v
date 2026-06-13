@@ -10,6 +10,7 @@ import com.veranum.servicio.repositories.ServicioRepository;
 import feign.FeignException;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,13 +20,11 @@ import java.util.List;
 @Slf4j
 public class ServicioService {
 
-    private final ServicioRepository servicioRepository;
-    private final HotelClient hotelClient;
+    @Autowired
+    private ServicioRepository servicioRepository;
 
-    public ServicioService(ServicioRepository servicioRepository, HotelClient hotelClient) {
-        this.servicioRepository = servicioRepository;
-        this.hotelClient = hotelClient;
-    }
+    @Autowired
+    private HotelClient hotelClient;
 
     public List<ServicioResponseDTO> obtenerServicios() {
         log.info("Obteniendo servicios");

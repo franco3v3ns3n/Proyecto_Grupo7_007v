@@ -4,6 +4,7 @@ import com.veranum.evento.dtos.request.CentroEventoRequestDTO;
 import com.veranum.evento.dtos.response.CentroEventoResponseDTO;
 import com.veranum.evento.services.CentroEventoService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +15,8 @@ import java.util.List;
 @RequestMapping("/api/v1/eventos")
 public class CentroEventoController {
 
-    private final CentroEventoService centroEventoService;
-
-    public CentroEventoController(CentroEventoService centroEventoService) {
-        this.centroEventoService = centroEventoService;
-    }
+    @Autowired
+    private CentroEventoService centroEventoService;
 
     @GetMapping
     public ResponseEntity<List<CentroEventoResponseDTO>> obtenerCentrosEventos() {

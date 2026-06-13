@@ -10,6 +10,7 @@ import com.veranum.habitacion.repositories.HabitacionRepository;
 import feign.FeignException;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,13 +20,11 @@ import java.util.List;
 @Slf4j
 public class HabitacionService {
 
-    private final HabitacionRepository habitacionRepository;
-    private final HotelClient hotelClient;
+    @Autowired
+    private HabitacionRepository habitacionRepository;
 
-    public HabitacionService(HabitacionRepository habitacionRepository, HotelClient hotelClient) {
-        this.habitacionRepository = habitacionRepository;
-        this.hotelClient = hotelClient;
-    }
+    @Autowired
+    private HotelClient hotelClient;
 
     public List<HabitacionResponseDTO> obtenerHabitaciones() {
         log.info("Obteniendo todas las habitaciones");

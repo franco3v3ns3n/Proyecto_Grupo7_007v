@@ -10,6 +10,7 @@ import com.veranum.mantenimiento.repositories.MantenimientoRepository;
 import feign.FeignException;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,16 +20,11 @@ import java.util.List;
 @Slf4j
 public class MantenimientoService {
 
-    private final MantenimientoRepository mantenimientoRepository;
-    private final HabitacionClient habitacionClient;
+    @Autowired
+    private MantenimientoRepository mantenimientoRepository;
 
-    public MantenimientoService(
-            MantenimientoRepository mantenimientoRepository,
-            HabitacionClient habitacionClient
-    ) {
-        this.mantenimientoRepository = mantenimientoRepository;
-        this.habitacionClient = habitacionClient;
-    }
+    @Autowired
+    private HabitacionClient habitacionClient;
 
     public List<MantenimientoResponseDTO> obtenerMantenimientos() {
         log.info("Obteniendo mantenimientos");

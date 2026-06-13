@@ -10,6 +10,7 @@ import com.veranum.pago.repositories.PagoRepository;
 import feign.FeignException;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,16 +20,11 @@ import java.util.List;
 @Slf4j
 public class PagoService {
 
-    private final PagoRepository pagoRepository;
-    private final EstadiaClient estadiaClient;
+    @Autowired
+    private PagoRepository pagoRepository;
 
-    public PagoService(
-            PagoRepository pagoRepository,
-            EstadiaClient estadiaClient
-    ) {
-        this.pagoRepository = pagoRepository;
-        this.estadiaClient = estadiaClient;
-    }
+    @Autowired
+    private EstadiaClient estadiaClient;
 
     public List<PagoResponseDTO> obtenerPagos() {
         log.info("Obteniendo pagos");

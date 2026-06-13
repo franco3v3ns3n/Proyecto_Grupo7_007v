@@ -7,6 +7,7 @@ import com.veranum.cliente.models.ClienteModel;
 import com.veranum.cliente.repositories.ClienteRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,11 +17,8 @@ import java.util.List;
 @Slf4j
 public class ClienteService {
 
-    private final ClienteRepository clienteRepository;
-
-    public ClienteService(ClienteRepository clienteRepository) {
-        this.clienteRepository = clienteRepository;
-    }
+    @Autowired
+    private ClienteRepository clienteRepository;
 
     public List<ClienteResponseDTO> obtenerClientes() {
         log.info("Obteniendo clientes");

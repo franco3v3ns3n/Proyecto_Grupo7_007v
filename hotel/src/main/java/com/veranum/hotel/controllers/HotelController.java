@@ -4,6 +4,7 @@ import com.veranum.hotel.dtos.request.HotelRequestDTO;
 import com.veranum.hotel.dtos.response.HotelResponseDTO;
 import com.veranum.hotel.services.HotelService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +15,8 @@ import java.util.List;
 @RequestMapping("/api/v1/hoteles")
 public class HotelController {
 
-    private final HotelService hotelService;
-
-    public HotelController(HotelService hotelService) {
-        this.hotelService = hotelService;
-    }
+    @Autowired
+    private HotelService hotelService;
 
     @GetMapping
     public ResponseEntity<List<HotelResponseDTO>> obtenerHoteles() {

@@ -4,6 +4,7 @@ import com.veranum.estadia.dtos.request.EstadiaRequestDTO;
 import com.veranum.estadia.dtos.response.EstadiaResponseDTO;
 import com.veranum.estadia.services.EstadiaService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +15,8 @@ import java.util.List;
 @RequestMapping("/api/v1/estadias")
 public class EstadiaController {
 
-    private final EstadiaService estadiaService;
-
-    public EstadiaController(EstadiaService estadiaService) {
-        this.estadiaService = estadiaService;
-    }
+    @Autowired
+    private EstadiaService estadiaService;
 
     @GetMapping
     public ResponseEntity<List<EstadiaResponseDTO>> obtenerEstadias() {

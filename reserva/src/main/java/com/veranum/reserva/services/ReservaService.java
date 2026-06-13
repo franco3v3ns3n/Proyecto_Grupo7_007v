@@ -11,6 +11,7 @@ import com.veranum.reserva.repositories.ReservaRepository;
 import feign.FeignException;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -21,19 +22,14 @@ import java.util.List;
 @Slf4j
 public class ReservaService {
 
-    private final ReservaRepository reservaRepository;
-    private final ClienteClient clienteClient;
-    private final HabitacionClient habitacionClient;
+    @Autowired
+    private ReservaRepository reservaRepository;
 
-    public ReservaService(
-            ReservaRepository reservaRepository,
-            ClienteClient clienteClient,
-            HabitacionClient habitacionClient
-    ) {
-        this.reservaRepository = reservaRepository;
-        this.clienteClient = clienteClient;
-        this.habitacionClient = habitacionClient;
-    }
+    @Autowired
+    private ClienteClient clienteClient;
+
+    @Autowired
+    private HabitacionClient habitacionClient;
 
     public List<ReservaResponseDTO> obtenerReservas() {
         log.info("Obteniendo reservas");

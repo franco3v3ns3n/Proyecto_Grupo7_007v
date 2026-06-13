@@ -4,6 +4,7 @@ import com.veranum.cliente.dtos.request.ClienteRequestDTO;
 import com.veranum.cliente.dtos.response.ClienteResponseDTO;
 import com.veranum.cliente.services.ClienteService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +15,8 @@ import java.util.List;
 @RequestMapping("/api/v1/clientes")
 public class ClienteController {
 
-    private final ClienteService clienteService;
-
-    public ClienteController(ClienteService clienteService) {
-        this.clienteService = clienteService;
-    }
+    @Autowired
+    private ClienteService clienteService;
 
     @GetMapping
     public ResponseEntity<List<ClienteResponseDTO>> obtenerClientes() {

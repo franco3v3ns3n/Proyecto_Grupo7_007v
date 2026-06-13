@@ -10,6 +10,7 @@ import com.veranum.empleado.repositories.EmpleadoRepository;
 import feign.FeignException;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,16 +20,11 @@ import java.util.List;
 @Slf4j
 public class EmpleadoService {
 
-    private final EmpleadoRepository empleadoRepository;
-    private final HotelClient hotelClient;
+    @Autowired
+    private EmpleadoRepository empleadoRepository;
 
-    public EmpleadoService(
-            EmpleadoRepository empleadoRepository,
-            HotelClient hotelClient
-    ) {
-        this.empleadoRepository = empleadoRepository;
-        this.hotelClient = hotelClient;
-    }
+    @Autowired
+    private HotelClient hotelClient;
 
     public List<EmpleadoResponseDTO> obtenerEmpleados() {
         log.info("Obteniendo empleados");

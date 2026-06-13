@@ -4,6 +4,7 @@ import com.veranum.empleado.dtos.request.EmpleadoRequestDTO;
 import com.veranum.empleado.dtos.response.EmpleadoResponseDTO;
 import com.veranum.empleado.services.EmpleadoService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +15,8 @@ import java.util.List;
 @RequestMapping("/api/v1/empleados")
 public class EmpleadoController {
 
-    private final EmpleadoService empleadoService;
-
-    public EmpleadoController(EmpleadoService empleadoService) {
-        this.empleadoService = empleadoService;
-    }
+    @Autowired
+    private EmpleadoService empleadoService;
 
     @GetMapping
     public ResponseEntity<List<EmpleadoResponseDTO>> obtenerEmpleados() {

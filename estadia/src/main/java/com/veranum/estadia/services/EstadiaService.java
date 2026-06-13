@@ -12,6 +12,7 @@ import com.veranum.estadia.repositories.EstadiaRepository;
 import feign.FeignException;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,22 +22,17 @@ import java.util.List;
 @Slf4j
 public class EstadiaService {
 
-    private final EstadiaRepository estadiaRepository;
-    private final ClienteClient clienteClient;
-    private final HabitacionClient habitacionClient;
-    private final ReservaClient reservaClient;
+    @Autowired
+    private EstadiaRepository estadiaRepository;
 
-    public EstadiaService(
-            EstadiaRepository estadiaRepository,
-            ClienteClient clienteClient,
-            HabitacionClient habitacionClient,
-            ReservaClient reservaClient
-    ) {
-        this.estadiaRepository = estadiaRepository;
-        this.clienteClient = clienteClient;
-        this.habitacionClient = habitacionClient;
-        this.reservaClient = reservaClient;
-    }
+    @Autowired
+    private ClienteClient clienteClient;
+
+    @Autowired
+    private HabitacionClient habitacionClient;
+
+    @Autowired
+    private ReservaClient reservaClient;
 
     public List<EstadiaResponseDTO> obtenerEstadias() {
         log.info("Obteniendo estadías");
