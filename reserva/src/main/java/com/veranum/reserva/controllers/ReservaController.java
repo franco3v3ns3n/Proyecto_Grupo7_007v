@@ -105,6 +105,7 @@ public class ReservaController {
     })
     @PostMapping
     public ResponseEntity<ReservaResponseDTO> crearReserva(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Datos necesarios para crear una reserva", required = true)
             @Valid @RequestBody ReservaRequestDTO request
     ) {
         return ResponseEntity
@@ -124,6 +125,7 @@ public class ReservaController {
     public ResponseEntity<ReservaResponseDTO> actualizarReserva(
             @Parameter(description = "ID de la reserva", required = true)
             @PathVariable Integer idReserva,
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Datos necesarios para actualizar una reserva", required = true)
             @Valid @RequestBody ReservaRequestDTO request
     ) {
         return ResponseEntity.ok(reservaService.actualizarReserva(idReserva, request));
