@@ -14,17 +14,17 @@ public class EmpleadoRequestDTO {
     @NotNull(message = "El id del hotel es obligatorio")
     private Integer idHotel;
 
-    @Schema(description = "Nombres del empleado", example = "Carlos Andrés")
+    @Schema(description = "Nombres del empleado", example = "Ignacio Tomas")
     @NotBlank(message = "Los nombres del empleado son obligatorios")
     @Size(max = 100, message = "Los nombres no pueden superar 100 caracteres")
     private String nombres;
 
-    @Schema(description = "Apellidos del empleado", example = "Muñoz Rojas")
+    @Schema(description = "Apellidos del empleado", example = "Lagos Vera")
     @NotBlank(message = "Los apellidos del empleado son obligatorios")
     @Size(max = 100, message = "Los apellidos no pueden superar 100 caracteres")
     private String apellidos;
 
-    @Schema(description = "RUT del empleado", example = "11111111-1")
+    @Schema(description = "RUT del empleado", example = "21436587-1")
     @NotBlank(message = "El rut del empleado es obligatorio")
     @Size(max = 12, message = "El rut no puede superar 12 caracteres")
     private String rut;

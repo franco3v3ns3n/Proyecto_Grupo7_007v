@@ -80,8 +80,8 @@ public class ClienteController {
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Datos necesarios para crear un cliente", required = true,
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ClienteRequestDTO.class),
-                            examples = @ExampleObject(name = "Cliente Juan Pablo",
-                                    value = "{\"nombres\":\"Juan Pablo\",\"apellidos\":\"Roa Soto\",\"rut\":\"12345678-9\",\"telefono\":\"912345678\",\"correo\":\"juan.roa@test.cl\",\"direccion\":\"Santiago Centro\"}")))
+                            examples = @ExampleObject(name = "Cliente Martina Sofia",
+                                    value = "{\"nombres\":\"Martina Sofia\",\"apellidos\":\"Silva Torres\",\"rut\":\"20123456-5\",\"telefono\":\"987654321\",\"correo\":\"martina.silva@example.cl\",\"direccion\":\"Las Condes\"}")))
             @Valid @RequestBody ClienteRequestDTO request
     ) {
         return ResponseEntity
@@ -112,7 +112,7 @@ public class ClienteController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ClienteRequestDTO.class),
                             examples = @ExampleObject(name = "Cliente actualizado",
-                                    value = "{\"nombres\":\"Camila Andrea\",\"apellidos\":\"Rojas Munoz\",\"rut\":\"11222333-4\",\"telefono\":\"923456789\",\"correo\":\"camila.rojas@test.cl\",\"direccion\":\"Providencia\"}")))
+                                    value = "{\"nombres\":\"Nicolas Andres\",\"apellidos\":\"Reyes Mora\",\"rut\":\"20987654-K\",\"telefono\":\"976543210\",\"correo\":\"nicolas.reyes@example.cl\",\"direccion\":\"La Florida\"}")))
             @Valid @RequestBody ClienteRequestDTO request
     ) {
         return ResponseEntity.ok(clienteService.actualizarCliente(idCliente, request));

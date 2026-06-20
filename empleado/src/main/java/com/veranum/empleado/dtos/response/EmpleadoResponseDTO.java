@@ -15,13 +15,13 @@ public class EmpleadoResponseDTO {
     @Schema(description = "ID del hotel asociado al empleado", example = "1")
     private Integer idHotel;
 
-    @Schema(description = "Nombres del empleado", example = "Carlos Andrés")
+    @Schema(description = "Nombres del empleado", example = "Ignacio Tomas")
     private String nombres;
 
-    @Schema(description = "Apellidos del empleado", example = "Muñoz Rojas")
+    @Schema(description = "Apellidos del empleado", example = "Lagos Vera")
     private String apellidos;
 
-    @Schema(description = "RUT del empleado", example = "11111111-1")
+    @Schema(description = "RUT del empleado", example = "21436587-1")
     private String rut;
 
     @Schema(description = "Tipo de empleado", example = "ADMINISTRADOR")

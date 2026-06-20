@@ -135,7 +135,7 @@ public class EmpleadoController {
                             schema = @Schema(implementation = EmpleadoRequestDTO.class),
                             examples = @ExampleObject(
                                     name = "Empleado administrador",
-                                    value = "{\"idHotel\":1,\"nombres\":\"Carlos Andrés\",\"apellidos\":\"Muñoz Rojas\",\"rut\":\"11111111-1\",\"tipoEmpleado\":\"ADMINISTRADOR\",\"estadoEmpleado\":\"ACTIVO\"}"
+                                    value = "{\"idHotel\":1,\"nombres\":\"Ignacio Tomas\",\"apellidos\":\"Lagos Vera\",\"rut\":\"21436587-1\",\"tipoEmpleado\":\"ADMINISTRADOR\",\"estadoEmpleado\":\"ACTIVO\"}"
                             )
                     )
             )
@@ -176,7 +176,7 @@ public class EmpleadoController {
                             schema = @Schema(implementation = EmpleadoRequestDTO.class),
                             examples = @ExampleObject(
                                     name = "Empleado actualizado",
-                                    value = "{\"idHotel\":1,\"nombres\":\"Fernanda Paz\",\"apellidos\":\"Soto Valdés\",\"rut\":\"12222222-2\",\"tipoEmpleado\":\"RECEPCIONISTA\",\"estadoEmpleado\":\"ACTIVO\"}"
+                                    value = "{\"idHotel\":1,\"nombres\":\"Paula Andrea\",\"apellidos\":\"Mora Diaz\",\"rut\":\"22678901-4\",\"tipoEmpleado\":\"RECEPCIONISTA\",\"estadoEmpleado\":\"ACTIVO\"}"
                             )
                     )
             )

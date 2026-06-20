@@ -12,21 +12,21 @@ public class ClienteResponseDTO {
     @Schema(description = "ID único del cliente", example = "1")
     private Integer idCliente;
 
-    @Schema(description = "Nombres del cliente", example = "Juan Pablo")
+    @Schema(description = "Nombres del cliente", example = "Martina Sofia")
     private String nombres;
 
-    @Schema(description = "Apellidos del cliente", example = "Roa Soto")
+    @Schema(description = "Apellidos del cliente", example = "Silva Torres")
     private String apellidos;
 
-    @Schema(description = "RUT del cliente", example = "12345678-9")
+    @Schema(description = "RUT del cliente", example = "20123456-5")
     private String rut;
 
-    @Schema(description = "Teléfono de contacto del cliente", example = "912345678")
+    @Schema(description = "Teléfono de contacto del cliente", example = "987654321")
     private String telefono;
 
-    @Schema(description = "Correo electrónico del cliente", example = "juan.roa@test.cl")
+    @Schema(description = "Correo electrónico del cliente", example = "martina.silva@example.cl")
     private String correo;
 
-    @Schema(description = "Dirección del cliente", example = "Santiago Centro")
+    @Schema(description = "Dirección del cliente", example = "Las Condes")
     private String direccion;
 }

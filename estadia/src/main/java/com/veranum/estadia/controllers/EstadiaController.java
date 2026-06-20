@@ -176,8 +176,8 @@ public class EstadiaController {
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Datos necesarios para crear una estadía", required = true,
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = EstadiaRequestDTO.class),
-                            examples = @ExampleObject(name = "Estadía en curso",
-                                    value = "{\"idCliente\":2,\"idHabitacion\":7,\"idReserva\":7,\"fechaCheckin\":\"2026-05-20T15:00:00\",\"fechaCheckout\":null,\"estadoEstadia\":\"EN_CURSO\"}")))
+                            examples = @ExampleObject(name = "Estadía finalizada",
+                                    value = "{\"idCliente\":5,\"idHabitacion\":2,\"idReserva\":12,\"fechaCheckin\":\"2026-09-10T15:00:00\",\"fechaCheckout\":\"2026-09-15T11:00:00\",\"estadoEstadia\":\"FINALIZADA\"}")))
             @Valid @RequestBody EstadiaRequestDTO request
     ) {
         return ResponseEntity
@@ -210,8 +210,8 @@ public class EstadiaController {
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Datos necesarios para actualizar una estadía", required = true,
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = EstadiaRequestDTO.class),
-                            examples = @ExampleObject(name = "Estadía finalizada",
-                                    value = "{\"idCliente\":2,\"idHabitacion\":7,\"idReserva\":7,\"fechaCheckin\":\"2026-05-20T15:00:00\",\"fechaCheckout\":\"2026-05-23T11:00:00\",\"estadoEstadia\":\"FINALIZADA\"}")))
+                            examples = @ExampleObject(name = "Estadía actualizada",
+                                    value = "{\"idCliente\":5,\"idHabitacion\":2,\"idReserva\":12,\"fechaCheckin\":\"2026-09-10T15:00:00\",\"fechaCheckout\":\"2026-09-15T11:00:00\",\"estadoEstadia\":\"FINALIZADA\"}")))
             @Valid @RequestBody EstadiaRequestDTO request
     ) {
         return ResponseEntity.ok(estadiaService.actualizarEstadia(idEstadia, request));
