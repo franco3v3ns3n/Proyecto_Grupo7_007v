@@ -5,6 +5,8 @@ import com.veranum.reserva.dtos.response.ReservaResponseDTO;
 import com.veranum.reserva.services.ReservaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +25,21 @@ public class ReservaController {
     private ReservaService reservaService;
 
     @Operation(summary = "Obtener todas las reservas", description = "Retorna todas las reservas registradas")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operación exitosa"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
     @GetMapping
     public ResponseEntity<List<ReservaResponseDTO>> obtenerReservas() {
         return ResponseEntity.ok(reservaService.obtenerReservas());
     }
 
     @Operation(summary = "Obtener reserva por ID", description = "Busca una reserva según su identificador")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operación exitosa"),
+            @ApiResponse(responseCode = "404", description = "Reserva no encontrada"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
     @GetMapping("/{idReserva}")
     public ResponseEntity<ReservaResponseDTO> obtenerReservaPorId(
             @Parameter(description = "ID de la reserva", required = true)
@@ -38,6 +49,12 @@ public class ReservaController {
     }
 
     @Operation(summary = "Obtener reservas por cliente", description = "Retorna reservas asociadas a un cliente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operación exitosa"),
+            @ApiResponse(responseCode = "404", description = "Cliente no encontrado"),
+            @ApiResponse(responseCode = "502", description = "Error al comunicarse con el microservicio cliente"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
     @GetMapping("/cliente/{idCliente}")
     public ResponseEntity<List<ReservaResponseDTO>> obtenerReservasPorCliente(
             @Parameter(description = "ID del cliente", required = true)
@@ -47,6 +64,12 @@ public class ReservaController {
     }
 
     @Operation(summary = "Obtener reservas por habitación", description = "Retorna reservas asociadas a una habitación")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operación exitosa"),
+            @ApiResponse(responseCode = "404", description = "Habitación no encontrada"),
+            @ApiResponse(responseCode = "502", description = "Error al comunicarse con el microservicio habitación"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
     @GetMapping("/habitacion/{idHabitacion}")
     public ResponseEntity<List<ReservaResponseDTO>> obtenerReservasPorHabitacion(
             @Parameter(description = "ID de la habitación", required = true)
@@ -56,6 +79,10 @@ public class ReservaController {
     }
 
     @Operation(summary = "Obtener reservas por estado", description = "Filtra reservas por estado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operación exitosa"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
     @GetMapping("/estado/{estadoReserva}")
     public ResponseEntity<List<ReservaResponseDTO>> obtenerReservasPorEstado(
             @Parameter(description = "Estado de la reserva", required = true)
@@ -69,6 +96,13 @@ public class ReservaController {
     }
 
     @Operation(summary = "Crear reserva", description = "Crea una reserva validando cliente y habitación")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Reserva creada exitosamente"),
+            @ApiResponse(responseCode = "400", description = "Error de validación en los datos enviados"),
+            @ApiResponse(responseCode = "404", description = "Cliente o habitación no encontrada"),
+            @ApiResponse(responseCode = "502", description = "Error al comunicarse con los microservicios cliente o habitación"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
     @PostMapping
     public ResponseEntity<ReservaResponseDTO> crearReserva(
             @Valid @RequestBody ReservaRequestDTO request
@@ -79,6 +113,13 @@ public class ReservaController {
     }
 
     @Operation(summary = "Actualizar reserva", description = "Actualiza una reserva existente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Reserva actualizada exitosamente"),
+            @ApiResponse(responseCode = "400", description = "Error de validación en los datos enviados"),
+            @ApiResponse(responseCode = "404", description = "Reserva, cliente o habitación no encontrada"),
+            @ApiResponse(responseCode = "502", description = "Error al comunicarse con los microservicios cliente o habitación"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
     @PutMapping("/{idReserva}")
     public ResponseEntity<ReservaResponseDTO> actualizarReserva(
             @Parameter(description = "ID de la reserva", required = true)
@@ -89,6 +130,11 @@ public class ReservaController {
     }
 
     @Operation(summary = "Eliminar reserva", description = "Elimina una reserva existente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Reserva eliminada exitosamente"),
+            @ApiResponse(responseCode = "404", description = "Reserva no encontrada"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
     @DeleteMapping("/{idReserva}")
     public ResponseEntity<Void> eliminarReserva(
             @Parameter(description = "ID de la reserva", required = true)
