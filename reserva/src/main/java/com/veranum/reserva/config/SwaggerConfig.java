@@ -5,9 +5,11 @@ import io.swagger.v3.oas.models.info.Info;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+// @Configuration permite que Spring reconozca esta clase como fuente de configuración.
 @Configuration
 public class SwaggerConfig {
 
+    // @Bean registra en Spring la configuración general de OpenAPI usada por Swagger UI.
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()

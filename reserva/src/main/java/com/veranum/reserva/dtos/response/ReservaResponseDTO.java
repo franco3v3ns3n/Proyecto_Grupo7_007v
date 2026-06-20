@@ -7,11 +7,13 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+// @Schema en la clase describe el modelo completo que se mostrará en Swagger.
 @Schema(description = "Datos de una reserva registrada")
 @Data
 @Builder
 public class ReservaResponseDTO {
 
+    // @Schema en un atributo agrega descripción y ejemplo para esa propiedad.
     @Schema(description = "ID único de la reserva", example = "1")
     private Integer idReserva;
 

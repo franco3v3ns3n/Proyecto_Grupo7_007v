@@ -23,13 +23,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/reservas")
+// @Tag agrupa los endpoints de Reserva en una sección de Swagger UI.
 @Tag(name = "Reservas", description = "Operaciones relacionadas con la gestión de reservas")
 public class ReservaController {
 
     @Autowired
     private ReservaService reservaService;
 
+    // @Operation documenta la finalidad del endpoint mediante resumen y descripción.
     @Operation(summary = "Obtener todas las reservas", description = "Retorna todas las reservas registradas")
+    // @ApiResponses agrupa las respuestas posibles del endpoint.
+    // @ApiResponse documenta un código HTTP concreto.
+    // @Content define el tipo y estructura del contenido de respuesta.
+    // @ArraySchema representa una lista y @Schema(implementation = ...) indica el DTO de respuesta.
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
@@ -57,6 +63,7 @@ public class ReservaController {
     })
     @GetMapping("/{idReserva}")
     public ResponseEntity<ReservaResponseDTO> obtenerReservaPorId(
+            // @Parameter describe un parámetro de ruta recibido por el endpoint.
             @Parameter(description = "ID de la reserva", required = true)
             @PathVariable Integer idReserva
     ) {
@@ -150,11 +157,15 @@ public class ReservaController {
     })
     @PostMapping
     public ResponseEntity<ReservaResponseDTO> crearReserva(
+            // @RequestBody de OpenAPI solo documenta el cuerpo de la solicitud en Swagger.
+            // @Content define que se envía JSON; @Schema indica el DTO de entrada.
+            // @ExampleObject proporciona un JSON de ejemplo para probar el endpoint.
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Datos necesarios para crear una reserva", required = true,
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ReservaRequestDTO.class),
                             examples = @ExampleObject(name = "Reserva confirmada",
                                     value = "{\"idCliente\":1,\"idHabitacion\":1,\"fechaInicio\":\"2026-07-20\",\"fechaFin\":\"2026-07-25\",\"estadoReserva\":\"CONFIRMADA\"}")))
+            // @RequestBody de Spring recibe y deserializa realmente el JSON enviado.
             @Valid @RequestBody ReservaRequestDTO request
     ) {
         return ResponseEntity
