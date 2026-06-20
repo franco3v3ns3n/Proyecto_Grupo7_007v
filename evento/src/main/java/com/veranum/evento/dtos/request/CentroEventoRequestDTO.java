@@ -3,6 +3,7 @@ package com.veranum.evento.dtos.request;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -33,5 +34,7 @@ public class CentroEventoRequestDTO {
     @Schema(description = "Estado actual del centro de evento", example = "ACTIVO")
     @NotBlank(message = "El estado es obligatorio")
     @Size(max = 30, message = "El estado no puede superar 30 caracteres")
+    @Pattern(regexp = "^(ACTIVO|INACTIVO)$",
+            message = "El estado debe ser ACTIVO o INACTIVO")
     private String estadoCentroEvento;
 }

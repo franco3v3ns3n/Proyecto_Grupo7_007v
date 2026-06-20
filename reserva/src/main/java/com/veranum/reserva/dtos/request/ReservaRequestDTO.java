@@ -3,6 +3,7 @@ package com.veranum.reserva.dtos.request;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -33,5 +34,7 @@ public class ReservaRequestDTO {
     @Schema(description = "Estado actual de la reserva", example = "CONFIRMADA")
     @NotBlank(message = "El estado de la reserva es obligatorio")
     @Size(max = 30, message = "El estado no puede superar 30 caracteres")
+    @Pattern(regexp = "^(CONFIRMADA|CANCELADA|FINALIZADA|NO_SHOW)$",
+            message = "El estado debe ser CONFIRMADA, CANCELADA, FINALIZADA o NO_SHOW")
     private String estadoReserva;
 }

@@ -3,6 +3,7 @@ package com.veranum.mantenimiento.dtos.request;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -31,5 +32,7 @@ public class MantenimientoRequestDTO {
     @Schema(description = "Estado actual del mantenimiento", example = "FINALIZADO")
     @NotBlank(message = "El estado del mantenimiento es obligatorio")
     @Size(max = 30, message = "El estado no puede superar 30 caracteres")
+    @Pattern(regexp = "^(PROGRAMADO|EN_PROCESO|FINALIZADO)$",
+            message = "El estado debe ser PROGRAMADO, EN_PROCESO o FINALIZADO")
     private String estadoMantenimiento;
 }

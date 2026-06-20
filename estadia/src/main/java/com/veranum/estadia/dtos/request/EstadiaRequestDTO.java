@@ -3,6 +3,7 @@ package com.veranum.estadia.dtos.request;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -33,5 +34,7 @@ public class EstadiaRequestDTO {
     @Schema(description = "Estado actual de la estadía", example = "FINALIZADA")
     @NotBlank(message = "El estado de la estadía es obligatorio")
     @Size(max = 30, message = "El estado no puede superar 30 caracteres")
+    @Pattern(regexp = "^(RESERVADA|EN_CURSO|FINALIZADA)$",
+            message = "El estado debe ser RESERVADA, EN_CURSO o FINALIZADA")
     private String estadoEstadia;
 }

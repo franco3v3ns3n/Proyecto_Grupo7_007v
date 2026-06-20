@@ -3,6 +3,7 @@ package com.veranum.habitacion.dtos.request;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -49,5 +50,7 @@ public class HabitacionRequestDTO {
     @Schema(description = "Estado actual de la habitación", example = "DISPONIBLE")
     @NotBlank(message = "El estado de la habitación es obligatorio")
     @Size(max = 30, message = "El estado no puede superar los 30 caracteres")
+    @Pattern(regexp = "^(DISPONIBLE|OCUPADA|MANTENIMIENTO)$",
+            message = "El estado debe ser DISPONIBLE, OCUPADA o MANTENIMIENTO")
     private String estadoHabitacion;
 }
