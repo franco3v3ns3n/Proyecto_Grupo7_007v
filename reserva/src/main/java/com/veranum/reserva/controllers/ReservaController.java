@@ -2,6 +2,7 @@ package com.veranum.reserva.controllers;
 
 import com.veranum.reserva.dtos.request.ReservaRequestDTO;
 import com.veranum.reserva.dtos.response.ReservaResponseDTO;
+import com.veranum.reserva.exceptions.ErrorResponse;
 import com.veranum.reserva.services.ReservaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -33,7 +34,9 @@ public class ReservaController {
             @ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = ReservaResponseDTO.class)))),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class)))
     })
     @GetMapping
     public ResponseEntity<List<ReservaResponseDTO>> obtenerReservas() {
@@ -45,8 +48,12 @@ public class ReservaController {
             @ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ReservaResponseDTO.class))),
-            @ApiResponse(responseCode = "404", description = "Reserva no encontrada"),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+            @ApiResponse(responseCode = "404", description = "Reserva no encontrada",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class)))
     })
     @GetMapping("/{idReserva}")
     public ResponseEntity<ReservaResponseDTO> obtenerReservaPorId(
@@ -61,9 +68,15 @@ public class ReservaController {
             @ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = ReservaResponseDTO.class)))),
-            @ApiResponse(responseCode = "404", description = "Cliente no encontrado"),
-            @ApiResponse(responseCode = "502", description = "Error al comunicarse con el microservicio cliente"),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+            @ApiResponse(responseCode = "404", description = "Cliente no encontrado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "502", description = "Error al comunicarse con el microservicio cliente",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class)))
     })
     @GetMapping("/cliente/{idCliente}")
     public ResponseEntity<List<ReservaResponseDTO>> obtenerReservasPorCliente(
@@ -78,9 +91,15 @@ public class ReservaController {
             @ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = ReservaResponseDTO.class)))),
-            @ApiResponse(responseCode = "404", description = "Habitación no encontrada"),
-            @ApiResponse(responseCode = "502", description = "Error al comunicarse con el microservicio habitación"),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+            @ApiResponse(responseCode = "404", description = "Habitación no encontrada",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "502", description = "Error al comunicarse con el microservicio habitación",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class)))
     })
     @GetMapping("/habitacion/{idHabitacion}")
     public ResponseEntity<List<ReservaResponseDTO>> obtenerReservasPorHabitacion(
@@ -95,7 +114,9 @@ public class ReservaController {
             @ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = ReservaResponseDTO.class)))),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class)))
     })
     @GetMapping("/estado/{estadoReserva}")
     public ResponseEntity<List<ReservaResponseDTO>> obtenerReservasPorEstado(
@@ -114,10 +135,18 @@ public class ReservaController {
             @ApiResponse(responseCode = "201", description = "Reserva creada exitosamente",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ReservaResponseDTO.class))),
-            @ApiResponse(responseCode = "400", description = "Error de validación en los datos enviados"),
-            @ApiResponse(responseCode = "404", description = "Cliente o habitación no encontrada"),
-            @ApiResponse(responseCode = "502", description = "Error al comunicarse con los microservicios cliente o habitación"),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+            @ApiResponse(responseCode = "400", description = "Error de validación en los datos enviados",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "404", description = "Cliente o habitación no encontrada",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "502", description = "Error al comunicarse con los microservicios cliente o habitación",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PostMapping
     public ResponseEntity<ReservaResponseDTO> crearReserva(
@@ -138,10 +167,18 @@ public class ReservaController {
             @ApiResponse(responseCode = "200", description = "Reserva actualizada exitosamente",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ReservaResponseDTO.class))),
-            @ApiResponse(responseCode = "400", description = "Error de validación en los datos enviados"),
-            @ApiResponse(responseCode = "404", description = "Reserva, cliente o habitación no encontrada"),
-            @ApiResponse(responseCode = "502", description = "Error al comunicarse con los microservicios cliente o habitación"),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+            @ApiResponse(responseCode = "400", description = "Error de validación en los datos enviados",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "404", description = "Reserva, cliente o habitación no encontrada",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "502", description = "Error al comunicarse con los microservicios cliente o habitación",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PutMapping("/{idReserva}")
     public ResponseEntity<ReservaResponseDTO> actualizarReserva(
@@ -160,8 +197,12 @@ public class ReservaController {
     @Operation(summary = "Eliminar reserva", description = "Elimina una reserva existente")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Reserva eliminada exitosamente"),
-            @ApiResponse(responseCode = "404", description = "Reserva no encontrada"),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+            @ApiResponse(responseCode = "404", description = "Reserva no encontrada",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class)))
     })
     @DeleteMapping("/{idReserva}")
     public ResponseEntity<Void> eliminarReserva(
