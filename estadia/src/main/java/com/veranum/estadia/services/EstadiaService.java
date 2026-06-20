@@ -5,6 +5,7 @@ import com.veranum.estadia.clients.HabitacionClient;
 import com.veranum.estadia.clients.ReservaClient;
 import com.veranum.estadia.dtos.request.EstadiaRequestDTO;
 import com.veranum.estadia.dtos.response.EstadiaResponseDTO;
+import com.veranum.estadia.exceptions.BusinessRuleException;
 import com.veranum.estadia.exceptions.RemoteServiceException;
 import com.veranum.estadia.exceptions.ResourceNotFoundException;
 import com.veranum.estadia.models.EstadiaModel;
@@ -102,6 +103,7 @@ public class EstadiaService {
     public EstadiaResponseDTO crearEstadia(EstadiaRequestDTO request) {
         log.info("Creando estadía para cliente: {}", request.getIdCliente());
 
+        validarFechas(request);
         validarClienteExiste(request.getIdCliente());
         validarHabitacionExiste(request.getIdHabitacion());
 
@@ -129,6 +131,7 @@ public class EstadiaService {
         EstadiaModel estadia = estadiaRepository.findById(idEstadia)
                 .orElseThrow(() -> new ResourceNotFoundException("Estadía no encontrada"));
 
+        validarFechas(request);
         validarClienteExiste(request.getIdCliente());
         validarHabitacionExiste(request.getIdHabitacion());
 
@@ -155,6 +158,17 @@ public class EstadiaService {
                 .orElseThrow(() -> new ResourceNotFoundException("Estadía no encontrada"));
 
         estadiaRepository.delete(estadia);
+    }
+
+    private void validarFechas(EstadiaRequestDTO request) {
+        if (request.getFechaCheckin() != null
+                && request.getFechaCheckout() != null
+                && !request.getFechaCheckout().isAfter(request.getFechaCheckin())) {
+
+            throw new BusinessRuleException(
+                    "La fecha de checkout debe ser posterior a la fecha de check-in"
+            );
+        }
     }
 
     private void validarClienteExiste(Integer idCliente) {

@@ -4,6 +4,7 @@ import com.veranum.reserva.clients.ClienteClient;
 import com.veranum.reserva.clients.HabitacionClient;
 import com.veranum.reserva.dtos.request.ReservaRequestDTO;
 import com.veranum.reserva.dtos.response.ReservaResponseDTO;
+import com.veranum.reserva.exceptions.BusinessRuleException;
 import com.veranum.reserva.exceptions.RemoteServiceException;
 import com.veranum.reserva.exceptions.ResourceNotFoundException;
 import com.veranum.reserva.models.ReservaModel;
@@ -88,6 +89,7 @@ public class ReservaService {
     public ReservaResponseDTO crearReserva(ReservaRequestDTO request) {
         log.info("Creando reserva para cliente {} y habitación {}", request.getIdCliente(), request.getIdHabitacion());
 
+        validarFechas(request);
         validarClienteExiste(request.getIdCliente());
         validarHabitacionExiste(request.getIdHabitacion());
 
@@ -111,6 +113,7 @@ public class ReservaService {
         ReservaModel reserva = reservaRepository.findById(idReserva)
                 .orElseThrow(() -> new ResourceNotFoundException("Reserva no encontrada"));
 
+        validarFechas(request);
         validarClienteExiste(request.getIdCliente());
         validarHabitacionExiste(request.getIdHabitacion());
 
@@ -132,6 +135,17 @@ public class ReservaService {
                 .orElseThrow(() -> new ResourceNotFoundException("Reserva no encontrada"));
 
         reservaRepository.delete(reserva);
+    }
+
+    private void validarFechas(ReservaRequestDTO request) {
+        if (request.getFechaInicio() != null
+                && request.getFechaFin() != null
+                && !request.getFechaFin().isAfter(request.getFechaInicio())) {
+
+            throw new BusinessRuleException(
+                    "La fecha de fin debe ser posterior a la fecha de inicio"
+            );
+        }
     }
 
     private void validarClienteExiste(Integer idCliente) {

@@ -3,6 +3,7 @@ package com.veranum.mantenimiento.services;
 import com.veranum.mantenimiento.clients.HabitacionClient;
 import com.veranum.mantenimiento.dtos.request.MantenimientoRequestDTO;
 import com.veranum.mantenimiento.dtos.response.MantenimientoResponseDTO;
+import com.veranum.mantenimiento.exceptions.BusinessRuleException;
 import com.veranum.mantenimiento.exceptions.RemoteServiceException;
 import com.veranum.mantenimiento.exceptions.ResourceNotFoundException;
 import com.veranum.mantenimiento.models.MantenimientoModel;
@@ -72,6 +73,7 @@ public class MantenimientoService {
     public MantenimientoResponseDTO crearMantenimiento(MantenimientoRequestDTO request) {
         log.info("Creando mantenimiento para habitación: {}", request.getIdHabitacion());
 
+        validarFechas(request);
         validarHabitacionExiste(request.getIdHabitacion());
 
         MantenimientoModel mantenimiento = MantenimientoModel.builder()
@@ -96,6 +98,7 @@ public class MantenimientoService {
         MantenimientoModel mantenimiento = mantenimientoRepository.findById(idMantenimiento)
                 .orElseThrow(() -> new ResourceNotFoundException("Mantenimiento no encontrado"));
 
+        validarFechas(request);
         validarHabitacionExiste(request.getIdHabitacion());
 
         mantenimiento.setIdHabitacion(request.getIdHabitacion());
@@ -116,6 +119,17 @@ public class MantenimientoService {
                 .orElseThrow(() -> new ResourceNotFoundException("Mantenimiento no encontrado"));
 
         mantenimientoRepository.delete(mantenimiento);
+    }
+
+    private void validarFechas(MantenimientoRequestDTO request) {
+        if (request.getFechaInicio() != null
+                && request.getFechaFin() != null
+                && !request.getFechaFin().isAfter(request.getFechaInicio())) {
+
+            throw new BusinessRuleException(
+                    "La fecha de fin debe ser posterior a la fecha de inicio"
+            );
+        }
     }
 
     private void validarHabitacionExiste(Integer idHabitacion) {
