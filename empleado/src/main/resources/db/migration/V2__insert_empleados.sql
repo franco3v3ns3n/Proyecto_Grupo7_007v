@@ -16,9 +16,9 @@ VALUES
 (3, 'Camila Belen', 'Herrera Tapia', '16666666-6', 'RECEPCIONISTA', 'ACTIVO'),
 (3, 'Matias Alonso', 'Vega Morales', '17777777-7', 'OPERADOR', 'INACTIVO'),
 
-(4, 'Valentina Ignacia', 'Reyes Campos', '18888888-8', 'ADMINISTRADOR', 'ACTIVO'),
-(4, 'Diego Alejandro', 'Navarro Salinas', '19999999-9', 'RECEPCIONISTA', 'ACTIVO'),
-(4, 'Sofia Antonia', 'Carrasco León', '10101010-0', 'LIMPIEZA', 'ACTIVO'),
+(2, 'Valentina Ignacia', 'Reyes Campos', '18888888-8', 'ADMINISTRADOR', 'ACTIVO'),
+(2, 'Diego Alejandro', 'Navarro Salinas', '19999999-9', 'RECEPCIONISTA', 'ACTIVO'),
+(2, 'Sofia Antonia', 'Carrasco León', '10101010-0', 'LIMPIEZA', 'ACTIVO'),
 
-(5, 'Sebastian Nicolas', 'Contreras Díaz', '20202020-1', 'ADMINISTRADOR', 'ACTIVO'),
-(5, 'Francisca Javiera', 'Gonzalez Peña', '21212121-2', 'OPERADOR', 'ACTIVO');
+(3, 'Sebastian Nicolas', 'Contreras Díaz', '20202020-1', 'ADMINISTRADOR', 'ACTIVO'),
+(3, 'Francisca Javiera', 'Gonzalez Peña', '21212121-2', 'OPERADOR', 'ACTIVO');
