@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -122,7 +123,9 @@ public class ReservaController {
     public ResponseEntity<ReservaResponseDTO> crearReserva(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Datos necesarios para crear una reserva", required = true,
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ReservaRequestDTO.class)))
+                            schema = @Schema(implementation = ReservaRequestDTO.class),
+                            examples = @ExampleObject(name = "Reserva confirmada",
+                                    value = "{\"idCliente\":1,\"idHabitacion\":1,\"fechaInicio\":\"2026-07-20\",\"fechaFin\":\"2026-07-25\",\"estadoReserva\":\"CONFIRMADA\"}")))
             @Valid @RequestBody ReservaRequestDTO request
     ) {
         return ResponseEntity
@@ -146,7 +149,9 @@ public class ReservaController {
             @PathVariable Integer idReserva,
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Datos necesarios para actualizar una reserva", required = true,
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ReservaRequestDTO.class)))
+                            schema = @Schema(implementation = ReservaRequestDTO.class),
+                            examples = @ExampleObject(name = "Reserva actualizada",
+                                    value = "{\"idCliente\":1,\"idHabitacion\":2,\"fechaInicio\":\"2026-08-01\",\"fechaFin\":\"2026-08-05\",\"estadoReserva\":\"CONFIRMADA\"}")))
             @Valid @RequestBody ReservaRequestDTO request
     ) {
         return ResponseEntity.ok(reservaService.actualizarReserva(idReserva, request));
