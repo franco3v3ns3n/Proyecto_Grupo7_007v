@@ -5,6 +5,7 @@ import com.veranum.reserva.dtos.response.ReservaResponseDTO;
 import com.veranum.reserva.services.ReservaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -30,7 +31,7 @@ public class ReservaController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ReservaResponseDTO.class))),
+                            array = @ArraySchema(schema = @Schema(implementation = ReservaResponseDTO.class)))),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @GetMapping
@@ -58,7 +59,7 @@ public class ReservaController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ReservaResponseDTO.class))),
+                            array = @ArraySchema(schema = @Schema(implementation = ReservaResponseDTO.class)))),
             @ApiResponse(responseCode = "404", description = "Cliente no encontrado"),
             @ApiResponse(responseCode = "502", description = "Error al comunicarse con el microservicio cliente"),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
@@ -75,7 +76,7 @@ public class ReservaController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ReservaResponseDTO.class))),
+                            array = @ArraySchema(schema = @Schema(implementation = ReservaResponseDTO.class)))),
             @ApiResponse(responseCode = "404", description = "Habitación no encontrada"),
             @ApiResponse(responseCode = "502", description = "Error al comunicarse con el microservicio habitación"),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
@@ -92,7 +93,7 @@ public class ReservaController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operación exitosa",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ReservaResponseDTO.class))),
+                            array = @ArraySchema(schema = @Schema(implementation = ReservaResponseDTO.class)))),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @GetMapping("/estado/{estadoReserva}")
