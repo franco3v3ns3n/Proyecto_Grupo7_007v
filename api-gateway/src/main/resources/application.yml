@@ -12,6 +12,60 @@ spring:
                 - Path=/api/v1/reservas/**
               filters:
                 - AddResponseHeader=X-Gateway, api-gateway
+            - id: hotel-route
+              uri: lb://HOTEL
+              predicates:
+                - Path=/api/v1/hoteles/**
+              filters:
+                - AddResponseHeader=X-Gateway, api-gateway
+            - id: servicio-route
+              uri: lb://SERVICIO
+              predicates:
+                - Path=/api/v1/servicios/**
+              filters:
+                - AddResponseHeader=X-Gateway, api-gateway
+            - id: evento-route
+              uri: lb://EVENTO
+              predicates:
+                - Path=/api/v1/eventos/**
+              filters:
+                - AddResponseHeader=X-Gateway, api-gateway
+            - id: habitacion-route
+              uri: lb://HABITACION
+              predicates:
+                - Path=/api/v1/habitaciones/**
+              filters:
+                - AddResponseHeader=X-Gateway, api-gateway
+            - id: cliente-route
+              uri: lb://CLIENTE
+              predicates:
+                - Path=/api/v1/clientes/**
+              filters:
+                - AddResponseHeader=X-Gateway, api-gateway
+            - id: estadia-route
+              uri: lb://ESTADIA
+              predicates:
+                - Path=/api/v1/estadias/**
+              filters:
+                - AddResponseHeader=X-Gateway, api-gateway
+            - id: mantenimiento-route
+              uri: lb://MANTENIMIENTO
+              predicates:
+                - Path=/api/v1/mantenimientos/**
+              filters:
+                - AddResponseHeader=X-Gateway, api-gateway
+            - id: empleado-route
+              uri: lb://EMPLEADO
+              predicates:
+                - Path=/api/v1/empleados/**
+              filters:
+                - AddResponseHeader=X-Gateway, api-gateway
+            - id: pago-route
+              uri: lb://PAGO
+              predicates:
+                - Path=/api/v1/pagos/**
+              filters:
+                - AddResponseHeader=X-Gateway, api-gateway
 
 server:
   port: 8080
