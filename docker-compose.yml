@@ -1,4 +1,13 @@
 services:
+  eureka-server:
+    build:
+      context: ./eureka-server
+      dockerfile: ../eureka-server/dockerfile
+    container_name: eureka-server
+    restart: always
+    ports:
+      - "8761:8761"
+
   mysql-hotel:
     image: mysql:8.0
     container_name: mysql-hotel
@@ -19,12 +28,14 @@ services:
     restart: always
     depends_on:
       - mysql-hotel
+      - eureka-server
     ports:
       - "8081:8081"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-hotel:3306/veranum_hotel?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root123
+      EUREKA_SERVICE_URL: http://eureka-server:8761/eureka/
 
   mysql-servicio:
     image: mysql:8.0
@@ -47,6 +58,7 @@ services:
     depends_on:
       - mysql-servicio
       - hotel
+      - eureka-server
     ports:
       - "8082:8082"
     environment:
@@ -54,6 +66,7 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root123
       HOTEL_SERVICE_URL: http://hotel:8081
+      EUREKA_SERVICE_URL: http://eureka-server:8761/eureka/
 
   mysql-evento:
     image: mysql:8.0
@@ -76,6 +89,7 @@ services:
     depends_on:
       - mysql-evento
       - hotel
+      - eureka-server
     ports:
       - "8083:8083"
     environment:
@@ -83,6 +97,7 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root123
       HOTEL_SERVICE_URL: http://hotel:8081
+      EUREKA_SERVICE_URL: http://eureka-server:8761/eureka/
 
   mysql-habitacion:
     image: mysql:8.0
@@ -105,6 +120,7 @@ services:
     depends_on:
       - mysql-habitacion
       - hotel
+      - eureka-server
     ports:
       - "8084:8084"
     environment:
@@ -112,6 +128,7 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root123
       HOTEL_SERVICE_URL: http://hotel:8081
+      EUREKA_SERVICE_URL: http://eureka-server:8761/eureka/
 
   mysql-cliente:
     image: mysql:8.0
@@ -133,12 +150,14 @@ services:
     restart: always
     depends_on:
       - mysql-cliente
+      - eureka-server
     ports:
       - "8085:8085"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-cliente:3306/veranum_cliente?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root123
+      EUREKA_SERVICE_URL: http://eureka-server:8761/eureka/
 
   mysql-reserva:
     image: mysql:8.0
@@ -162,6 +181,7 @@ services:
       - mysql-reserva
       - cliente
       - habitacion
+      - eureka-server
     ports:
       - "8086:8086"
     environment:
@@ -170,6 +190,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: root123
       CLIENTE_SERVICE_URL: http://cliente:8085
       HABITACION_SERVICE_URL: http://habitacion:8084
+      EUREKA_SERVICE_URL: http://eureka-server:8761/eureka/
 
   mysql-estadia:
     image: mysql:8.0
@@ -194,6 +215,7 @@ services:
       - cliente
       - habitacion
       - reserva
+      - eureka-server
     ports:
       - "8087:8087"
     environment:
@@ -203,6 +225,7 @@ services:
       CLIENTE_SERVICE_URL: http://cliente:8085
       HABITACION_SERVICE_URL: http://habitacion:8084
       RESERVA_SERVICE_URL: http://reserva:8086
+      EUREKA_SERVICE_URL: http://eureka-server:8761/eureka/
   mysql-mantenimiento:
     image: mysql:8.0
     container_name: mysql-mantenimiento
@@ -224,6 +247,7 @@ services:
     depends_on:
       - mysql-mantenimiento
       - habitacion
+      - eureka-server
     ports:
       - "8088:8088"
     environment:
@@ -231,6 +255,7 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root123
       HABITACION_SERVICE_URL: http://habitacion:8084
+      EUREKA_SERVICE_URL: http://eureka-server:8761/eureka/
 
   mysql-empleado:
     image: mysql:8.0
@@ -253,6 +278,7 @@ services:
     depends_on:
       - mysql-empleado
       - hotel
+      - eureka-server
     ports:
       - "8089:8089"
     environment:
@@ -260,6 +286,7 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root123
       HOTEL_SERVICE_URL: http://hotel:8081
+      EUREKA_SERVICE_URL: http://eureka-server:8761/eureka/
 
   mysql-pago:
     image: mysql:8.0
@@ -282,6 +309,7 @@ services:
     depends_on:
       - mysql-pago
       - estadia
+      - eureka-server
     ports:
       - "8090:8090"
     environment:
@@ -289,6 +317,30 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root123
       ESTADIA_SERVICE_URL: http://estadia:8087
+      EUREKA_SERVICE_URL: http://eureka-server:8761/eureka/
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: ../api-gateway/dockerfile
+    container_name: api-gateway
+    restart: always
+    depends_on:
+      - eureka-server
+      - hotel
+      - servicio
+      - evento
+      - habitacion
+      - cliente
+      - reserva
+      - estadia
+      - mantenimiento
+      - empleado
+      - pago
+    ports:
+      - "8080:8080"
+    environment:
+      EUREKA_SERVICE_URL: http://eureka-server:8761/eureka/
 
 volumes:
   mysql_hotel_data:
